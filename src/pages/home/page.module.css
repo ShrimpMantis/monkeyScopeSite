@@ -1,0 +1,54 @@
+.mainContainer{
+  /* padding:3%; */
+  padding-top: 3%;
+  width: 100vw;
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+}
+.heroContainer{
+  height: 80%;
+  width: 100%;
+ 
+}
+.heroImage{
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.bodyContainer{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  height: 30%;
+}
+.section {
+  height:100%;
+  width: 100%;
+  /* background-color: red; */
+  text-align: center;
+  /* padding:3%; */
+  /* background-color: #9a97c2; */
+}
+.contentContainer {
+  background-color: white;
+  opacity: 70%;
+  height:100%;
+  width: 100%;
+  padding: 3%;
+}
+.section p{
+  padding:3%;
+  line-height: 1.6;
+}
+.aboutContainer{
+
+}
+.workReel{
+
+}
+.accolades{
+
+}
