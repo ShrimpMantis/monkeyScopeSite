@@ -1,17 +1,21 @@
 import { memo } from "react";
 import { InformationButton } from "./styledComponents/InformationButton.styled";
 
-const TextContainer = ({className, title, content, isPrimary}) => {
+const TextContainer = ({className, content, isPrimary, showButton, children}) => {
     const primary = isPrimary;
     return (
         <div className={className}>
-            <h2>{title}</h2>
+            {/* <h2>{title}</h2> */}
+            {children}
             <p> 
                 {content}
             </p>
-            <div>
-                <InformationButton $primary={primary}>More</InformationButton>
-            </div>
+            {showButton && 
+                <div>
+                    <InformationButton $primary={primary}>More</InformationButton>
+                </div>
+            }
+            
         </div>
     )
 };

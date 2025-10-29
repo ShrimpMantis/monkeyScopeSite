@@ -76,11 +76,12 @@ const VerticalScroller = ({items}) => {
             <Parallax pages={numberOfPages} style={fetchParallaxStyle()}>
                 <ParallaxLayer sticky={{start: 0, end: numberOfPages}} style={fetchStickyLayerStyle('flex-start')}>
                     <StyledTextStickyContainer
-                        title={"Latest News"}
                         isPrimary={false}
                         hasPicture={false}
                         key={'sticky-div-001'}
-                    />
+                    >
+                        <h2>{"Latest News"}</h2>
+                    </StyledTextStickyContainer>
                 </ParallaxLayer>
                 <PagesList 
                      pagesList={items}

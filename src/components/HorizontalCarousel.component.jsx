@@ -1,5 +1,4 @@
 import { useRef } from "react";
-
 const { Parallax, ParallaxLayer } = require("@react-spring/parallax");
 const { default: ImageContainerStyled } = require("./styledComponents/ImageContainer.styled");
 
@@ -20,7 +19,7 @@ const HorizontalCarousel = ({items}) => {
                  factor={0.32}
                  style={{ width: '100%', display: 'flex', justifyContent: 'flex-start' }}
                 >
-                    <div style={{width: '400px', height: '450px'}}>
+                    <div style={{width: '400px', height: '325px', overflow: 'hidden'}}>
                         <ImageContainerStyled 
                             src={card.src}
                             alt={card.alt}
@@ -33,7 +32,7 @@ const HorizontalCarousel = ({items}) => {
     };
 
     return (
-        <Parallax pages={numberOfItems} horizontal ref={cardRef} space={1}>
+        <Parallax pages={numberOfItems * 0.40} horizontal ref={cardRef} space={1} style={{zIndex:'999'}}>
             <HorizontalCards cards={items}/>
         </Parallax>
     );

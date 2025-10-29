@@ -1,17 +1,14 @@
 'use client'
 import React, { memo, useRef } from 'react';
 import TextContainer from '@/components/TextContainer.component';
-import styles from "./page.module.css";
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import VerticalScroller from '@/components/VerticalScroller.component';
 import HorizontalCarousel from '@/components/HorizontalCarousel.component';
+import { url } from '@/utilities/helper';
+import styles from '@/utilities/page.module.css';
 
 const Home = ({mediaItems, productions}) => {
-  const url = (name, wrap) => {
-    const test = `url('${name}')`;
-    console.log("test", test);
-    return wrap ? test : `${name}`;
-  }
+
   const parallax = useRef(null);
     return (
       <>
@@ -79,11 +76,11 @@ const Home = ({mediaItems, productions}) => {
         <ParallaxLayer
           offset={2}
           speed={-0.1}
-         // factor={3}
+          factor={1}
           style={{
-            backgroundImage: url('/kukili3.png', true),
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
+             backgroundImage: url('/kukili3.png', true),
+             backgroundSize: 'cover',
+             backgroundPosition: 'center'
           }}>
              <div className={styles.section}>
                 <div className={styles.contentContainer}>
@@ -148,7 +145,10 @@ const Home = ({mediaItems, productions}) => {
                   remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
                   containing Lorem Ipsum passages, `}
                   isPrimary={true}
-                 />
+                  showButton={true}
+                 >
+                  <h2>{"About"}</h2>
+                  </TextContainer>
                 </div>
              </div>
         </ParallaxLayer>
@@ -165,20 +165,20 @@ const Home = ({mediaItems, productions}) => {
           onClick={() => parallax.current.scrollTo(0)}>
           {/* <img src={url('/monkeyscope.png', false)} style={{ width: '40%' }} /> */}
           <div className={styles.section}>
-                <div className={styles.contentContainer}>
+              <div className={styles.contentContainer}>
                  <TextContainer 
-                  // remove this title later
-                  //toDo: horizontal carousel
-                    title={'Productions'}
-                    content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                  content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                   Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
                   when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
                   It has survived not only five centuries, but also the leap into electronic typesetting, 
                   remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
                   containing Lorem Ipsum passages, `}
-                 />
-                </div>
-             </div>
+                  showButton={true}
+                 >
+                  <h2>{"Awards"}</h2>
+                </TextContainer>
+              </div>
+          </div>
         </ParallaxLayer>
         <ParallaxLayer
           offset={5}

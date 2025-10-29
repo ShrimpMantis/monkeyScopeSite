@@ -1,4 +1,4 @@
-import Home from "./home/index";
+import Home from "./home/page";
 import  '../app/globals.css';
 
 const mediaItems = [
@@ -90,7 +90,6 @@ const productionItems = [
 const Index = () => {
     return (
         <>
-            <div className="menuContainer">This is menu</div>
             <Home 
                 mediaItems={mediaItems}
                 productions={productionItems}
