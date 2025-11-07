@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 
 const ImageTextContainer = ({title, content, imageInfo, className, clickCallBack}) => {
-    console.log("clickCallBack", typeof clickCallBack);
     return (
         <div className={className} onClick={clickCallBack}>
             <ImageContainerStyled src={imageInfo.src} alt={imageInfo.alt} />

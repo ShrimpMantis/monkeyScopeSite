@@ -6,7 +6,7 @@ const teamInfo = {
  teamList: [
     {
         imageInfo: {
-            src: '/moreLove.png',
+            src: '/kuku.jpg',
             alt: 'teamMem1'
         },
         title: 'Kulanandini Mahanta Founder',
@@ -14,7 +14,7 @@ const teamInfo = {
     },
     {
         imageInfo: {
-            src: '/moreLove.png',
+            src: '/pugu.jpg',
             alt: 'teamMem2'
         },
         title: 'Poonam Gurung Co-Founder',
@@ -49,7 +49,8 @@ const specializations = [
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like`,
-        title:'Music Video'
+        title:'Music Video',
+        link: '/productions'
     },
     {
         imageInfo: {
@@ -64,7 +65,8 @@ const specializations = [
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like)`,
-        title:'Educational Films'
+        title:'Educational Films',
+        link: '/productions'
     },
     {
         imageInfo: {
@@ -79,7 +81,8 @@ const specializations = [
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like`,
-        title:'Short Films'
+        title:'Short Films',
+        link: '/productions'
     },
     {
         imageInfo: {
@@ -94,7 +97,8 @@ const specializations = [
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like`,
-        title:'Documentaries'
+        title:'Documentaries',
+        link: '/productions'
     },
     {
         imageInfo: {
@@ -109,7 +113,8 @@ const specializations = [
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like`,
-        title:'Fight Choreography'
+        title:'Fight Choreography',
+        link: '/productions'
     },
 ];
 

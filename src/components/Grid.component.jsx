@@ -2,7 +2,7 @@ import { memo } from "react";
 import styled from "styled-components";
 import FlashCardComponent from "./styledComponents/FlashCard.styled";
 
-const StyledParentContainer = styled.div`
+const StyledTilesContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 5px;
@@ -12,19 +12,26 @@ const StyledParentContainer = styled.div`
     align-items: flex-start;
 
 `;
+const StyledParentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+`;
 
-const GridComponent = ({childrenList, children}) => {
+const GridComponent = ({childrenList, children, clickCb}) => {
     const Tiles = ({itemList}) => (
         <>
             {
                 itemList.map((child, index) => {
                     return (
-                        <div style={{overflow:'hidden', width:'450px'}} key={`${index}-flash-parent-div`}>
+                        <div style={{overflow:'hidden', width:'30%'}} key={`${index}-flash-parent-div`} 
+                            onClick={() =>clickCb(index)}>
                             <FlashCardComponent
-                            imageInfo={child.imageInfo}
-                            content={child.description}
-                            title={child.title}
-                            key={`${index}-flash-card-component`}
+                                imageInfo={child.imageInfo}
+                                content={child.description}
+                                title={child.title}
+                                key={`${index}-flash-card-component`}
+
                             />
                         </div>
                     );
@@ -34,12 +41,12 @@ const GridComponent = ({childrenList, children}) => {
     );
 
     return (
-        <div>
+        <StyledParentContainer>
             {children}
-            <StyledParentContainer>
+            <StyledTilesContainer>
                 <Tiles itemList={childrenList}/>
-            </StyledParentContainer>
-        </div>
+            </StyledTilesContainer>
+        </StyledParentContainer>
     );
 };
 

@@ -1,21 +1,27 @@
 'use client'
-import React, { memo, useRef } from 'react';
+import React, { memo } from 'react';
 import TextContainer from '@/components/TextContainer.component';
-import { Parallax, ParallaxLayer } from '@react-spring/parallax';
+import { ParallaxLayer } from '@react-spring/parallax';
 import VerticalScroller from '@/components/VerticalScroller.component';
 import HorizontalCarousel from '@/components/HorizontalCarousel.component';
 import { url } from '@/utilities/helper';
 import styles from '@/utilities/page.module.css';
+import { useRouter } from 'next/navigation';
+import styled from 'styled-components';
 
+const StyledAboutComponent = styled(TextContainer)`
+  p {
+    font-size: 25px;
+  }
+`;
 const Home = ({mediaItems, productions}) => {
+  const router = useRouter();
 
-  const parallax = useRef(null);
+  const handleItemClicked = (itemId) => {
+    router.push(`/news/${itemId}`);
+  };
     return (
       <>
-      {/* div className={styles.mainContainer}</> */}
-
-      <div style={{ width: '100%', height: '100%', background: '#253237' }}>
-      <Parallax ref={parallax} pages={6}>
         <ParallaxLayer offset={1} speed={1} style={{ backgroundColor: '#805E73' }} />
         <ParallaxLayer offset={2} speed={1} style={{ backgroundColor: '#87BCDE' }} />
 
@@ -59,20 +65,6 @@ const Home = ({mediaItems, productions}) => {
           <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '15%', marginLeft: '75%' }} />
         </ParallaxLayer>
 
-        {/* <ParallaxLayer
-          offset={1}
-          speed={-0.4}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            backgroundImage: url('/bhag.png', true),
-            backgroundSize: 'cover',
-          // }}>
-          {/* <img src={url('/bhagoruwa.png', false)} style={{ width: '100%' }} /> */}
-        {/* </ParallaxLayer> */} 
-
         <ParallaxLayer
           offset={2}
           speed={-0.1}
@@ -86,7 +78,7 @@ const Home = ({mediaItems, productions}) => {
                 <div className={styles.contentContainer}>
                    <h2>Productions</h2>
                    <div style={{marginTop: '5px', padding: '2%', zIndex:'999'}}>
-                      <HorizontalCarousel items={productions}/>
+                      <HorizontalCarousel items={productions} />
                    </div>
                 </div>
               </div>
@@ -106,7 +98,20 @@ const Home = ({mediaItems, productions}) => {
                     <VerticalScroller 
                         items={mediaItems}
                         key={1}
-                    />
+                        itemClickedHandler={handleItemClicked}
+                    >
+                      {/* <div>
+                      </div> */}
+                      <TextContainer 
+                        title={'Latest News'}
+                        showButton={false}
+                        btnText={'More News'}
+                        hrefParamValue={'/news'}
+                      >
+                         <h2>{"Latest News"}</h2>
+                      </TextContainer>
+                       
+                    </VerticalScroller>
             </div>
           </div>
         </ParallaxLayer>
@@ -114,7 +119,6 @@ const Home = ({mediaItems, productions}) => {
         <ParallaxLayer
           offset={0}
           speed={0.1}
-          onClick={() => parallax.current.scrollTo(1)}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -126,29 +130,29 @@ const Home = ({mediaItems, productions}) => {
         <ParallaxLayer
           offset={1}
           speed={0.1}
-          onClick={() => parallax.current.scrollTo(2)}
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          {/* <img src={url('/monkeyScope.png', false)} style={{ width: '20%' }} /> */}
             <div className={styles.section}>
                 <div className={styles.contentContainer}>
-                 <TextContainer 
+                 <StyledAboutComponent 
                   // remove this later
                     title={'About'}
                     content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  It has survived not only five centuries, but also the leap into electronic typesetting, 
-                  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-                  containing Lorem Ipsum passages, `}
-                  isPrimary={true}
-                  showButton={true}
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                    It has survived not only five centuries, but also the leap into electronic typesetting, 
+                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
+                    containing Lorem Ipsum passages, `}
+                    isPrimary={true}
+                    showButton={true}
+                    btnText={'More'}
+                    hrefParamValue={'/about'}
                  >
                   <h2>{"About"}</h2>
-                  </TextContainer>
+                  </StyledAboutComponent>
                 </div>
              </div>
         </ParallaxLayer>
@@ -160,10 +164,9 @@ const Home = ({mediaItems, productions}) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            
           }}
-          onClick={() => parallax.current.scrollTo(0)}>
-          {/* <img src={url('/monkeyscope.png', false)} style={{ width: '40%' }} /> */}
+           >
+           
           <div className={styles.section}>
               <div className={styles.contentContainer}>
                  <TextContainer 
@@ -174,6 +177,8 @@ const Home = ({mediaItems, productions}) => {
                   remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
                   containing Lorem Ipsum passages, `}
                   showButton={true}
+                  btnText={'More Info'}
+                  hrefParamValue={'/awards'}
                  >
                   <h2>{"Awards"}</h2>
                 </TextContainer>
@@ -191,31 +196,9 @@ const Home = ({mediaItems, productions}) => {
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
-          onClick={() => parallax.current.scrollTo(0)}>
-          {/* <img src={url('/monkeyscope.png', false)} style={{ width: '40%' }} /> */}
-          {/* <div className={styles.section}>
-                <div className={styles.contentContainer}>
-                 <TextContainer 
-                  // remove this later
-                    title={''}
-                    content={` `}
-                 />
-                </div>
-             </div> */}
+          >
         </ParallaxLayer>
-
-      </Parallax>
-      </div>
- 
-          
-          
-          {/* <div className={styles.section}>
-              <div className={styles.widgetContainer}> work reel</div>
-          </div>
-          <div className={styles.section}>
-          <div className={styles.widgetContainer}> in the press</div>
-          </div>
-            </div> */} 
+        
       </>
         
     );

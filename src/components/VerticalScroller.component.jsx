@@ -12,10 +12,10 @@ const StyledTextStickyContainer = styled(TextContainer)`
 `;
 
 const StyledMediaContainer = styled(ImageTextContainer)`
-  width: 50%; 
+  width: 61%; 
 `;
 
-const VerticalScroller = ({items}) => {
+const VerticalScroller = ({items, itemClickedHandler, children}) => {
     const numberOfPages = items.length;
     const alignCenter = { display: 'flex', alignItems: 'center'};
     const fetchStickyLayerStyle = useCallback((justifyContentPosition) => {
@@ -44,17 +44,10 @@ const VerticalScroller = ({items}) => {
         };
     }, items);
 
-    const PagesList = ({pagesList}) => {
-        console.log("pagesList", pagesList);
-        const itemClickCallBack = (ind) => {
-            console.log("index item clicked", ind);
-            //implement going to another page
-        };
+    const PagesList = ({pagesList, itemClickCallBack}) => {
         return pagesList.map((page, ind) => {
-            console.log("pageImageInfo", page.imageInfo);
             return(
-                // <div onClick={itemClickCallBack}>
-                    <ParallaxLayer key={ind} offset={ind} speed={1.5} 
+                    <ParallaxLayer key={ind} offset={ind} speed={1.5} factor={0.32} 
                         style={fetchParallaxLayerStyle('flex-end')}
                         onClick={() => itemClickCallBack(ind)}
                         >
@@ -67,24 +60,25 @@ const VerticalScroller = ({items}) => {
                             imageInfo={page.imageInfo}
                         />
                     </ParallaxLayer>
-                // </div>
             );
         });
     };
+
     return (
         <div>
-            <Parallax pages={numberOfPages} style={fetchParallaxStyle()}>
+            <Parallax pages={numberOfPages} style={fetchParallaxStyle()} >
                 <ParallaxLayer sticky={{start: 0, end: numberOfPages}} style={fetchStickyLayerStyle('flex-start')}>
                     <StyledTextStickyContainer
                         isPrimary={false}
                         hasPicture={false}
                         key={'sticky-div-001'}
                     >
-                        <h2>{"Latest News"}</h2>
+                       {children}
                     </StyledTextStickyContainer>
                 </ParallaxLayer>
                 <PagesList 
                      pagesList={items}
+                     itemClickCallBack={itemClickedHandler}
                 />
             </Parallax>
         </div>

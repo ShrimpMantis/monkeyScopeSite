@@ -10,21 +10,22 @@ const StyledDivWrapper = styled.div`
     height:100%;
 `;
 
-const StaggeredContainer = ({sections, children}) => {
+const StaggeredContainer = ({sections, children, btnText, clickCb}) => {
     const RenderedList = ({sections}) => {
         return sections.map((section, index) => {
-            console.log("index", index);
             const shouldFlip = ((index+2)%2) === 0;
-            console.log("shouldFlip", shouldFlip);
 
             return (
-                <div>
+                <div key={`${index}-image-container-wrapper`}>
                     <SideBySideTextImageContainer 
                         content={section.content}
                         imageInfo={section.imageInfo}
                         isFlip={shouldFlip}
                         key={`${index}-section`}
                         title={section.title}
+                        btnText={btnText}
+                        clickCb={clickCb}
+                        hrefValue={section.link}
                     />
                 </div>
             );

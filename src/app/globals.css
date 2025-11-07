@@ -51,6 +51,9 @@ h2 {
   text-decoration-thickness: 2px;
   text-decoration-line: underline;
 }
+li {
+  list-style-type:none
+}
 
 @media (prefers-color-scheme: dark) {
   html {

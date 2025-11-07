@@ -1,16 +1,15 @@
+import { useRouter } from "next/navigation";
 import { useRef } from "react";
 const { Parallax, ParallaxLayer } = require("@react-spring/parallax");
 const { default: ImageContainerStyled } = require("./styledComponents/ImageContainer.styled");
 
 const HorizontalCarousel = ({items}) => {
     const numberOfItems = items.length;
-    console.log("numberOfItems", numberOfItems);
+    const router = useRouter();
     const cardRef = useRef(null);
     const HorizontalCards = ({cards}) => {
-        const cardClicked = (scrollToCardNumber) => {
-            if(cardRef.current) {
-                cardRef.current.scrollTo(scrollToCardNumber);
-            }
+        const cardClicked = (cardNumber) => {
+          router.push(`/productions/${cardNumber}`);
         };
         return cards.map((card, index) => {
             return (

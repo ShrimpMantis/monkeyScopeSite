@@ -1,7 +1,9 @@
 import styled from "styled-components";
+import Link from "next/link";
 
-export const InformationButton = styled.button`
-    background: ${props => props.$primary ? "#2c6878" : "white"};
+//2c6878
+const InformationButtonStyled = styled.span`
+    background: ${props => props.$primary ? "#2c6878" : "white"}; 
     color: ${props => props.$primary ? "white" : "#2c6878"};
     font-size: 14px;
     margin: 10px;
@@ -15,7 +17,17 @@ export const InformationButton = styled.button`
     z-index:10;
     overflow:hidden;
     &:hover {
-        font-size: 20px;
+        font-size: 18px;
+        transition: 0.5s ease-in;
     }
-
+    display: inline-block;
+    text-align:center;
 `;
+
+export const InformationButton = ({children, hrefParam}) => {
+    return(
+        <Link href={hrefParam} passHref>
+            <InformationButtonStyled>{children}</InformationButtonStyled>
+        </Link>
+    );
+}

@@ -17,7 +17,8 @@ const StyledParent = styled.div`
 
 const StyledImageContainer = styled.div`
     width:40%;
-    flex-basis: 1 1 400px
+    flex-basis: 1 1 400px;
+    overflow: hidden;
 `;
 
 const StyleTextCompContainer = styled.div`
@@ -25,25 +26,25 @@ const StyleTextCompContainer = styled.div`
     flex-basis: 1 1 600px
 `;
 
-
-const SideBySideTextImageContainer = ({isFlip, imageInfo, content, title}) => {
+const SideBySideTextImageContainer = ({isFlip, imageInfo, content, title, children, btnText, hrefValue}) => {
    
-    console.log("isFlip", isFlip);
     return (
         <StyledParent $isFlip={isFlip}>
            <StyledImageContainer>
-                <ImageContainerStyled 
-                    src={imageInfo.src}
-                    alt={imageInfo.alt}
-                />
+               { imageInfo && <ImageContainerStyled  src={imageInfo.src}
+                    alt={imageInfo.alt}/>
+                }
             </StyledImageContainer>
             <StyleTextCompContainer>
                 <TextContainerComponent
-                    showButton={false}
+                    showButton={true}
                     content={content}
+                    btnText={btnText !== '' || btnText !== null || typeof btnText !== 'undefined' ? btnText : "More"}
+                    hrefParamValue={hrefValue}
                 >
-                   <h3>{title}</h3> 
+                   <h3>{title}</h3>
                 </TextContainerComponent>
+                {children}
             </StyleTextCompContainer>
         </StyledParent>
     );
