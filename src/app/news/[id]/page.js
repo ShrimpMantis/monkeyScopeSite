@@ -5,6 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import styles from '@/utilities/page.module.css';
 import { ParallaxLayer } from "@react-spring/parallax";
 import { url } from "@/utilities/helper";
+import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
+
+const StyledDetailSection = styled.div`
+    ${media.tablet} {
+        padding-top: 10%;
+    }
+`;
 
 const action = async ({id}) => {
     const currUrl = `/api/newsDetail?id=${id}`;
@@ -40,7 +48,7 @@ const Page = () => {
             </ParallaxLayer>
 
             <ParallaxLayer offset={1} factor={1} speed={1}>
-                <div className={styles.section}>
+                <StyledDetailSection className={styles.section}>
                     <div className={styles.contentContainer}>
                         {newsDetail && 
                                 <TextContainerComponent 
@@ -58,7 +66,7 @@ const Page = () => {
                                 <span></span>
                             </div>} */}
                     </div>
-                </div>
+                </StyledDetailSection>
             </ParallaxLayer>
         </>
      

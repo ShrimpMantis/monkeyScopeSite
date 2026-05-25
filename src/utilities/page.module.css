@@ -44,6 +44,42 @@
   padding:3%;
   line-height: 1.6;
 }
+
+.stickyContainer {
+}
+
+@media (max-width: 768px) {
+  .mainContainer {
+    padding-top: 18%;
+    gap: 12px;
+  }
+
+  .section {
+    min-height: auto;
+    padding: 0 2%;
+  }
+
+  .contentContainer {
+    padding: 5% 4%;
+    opacity: 85%;
+  }
+
+  .section p {
+    padding: 2% 0;
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContainer {
+    padding-top: 20%;
+  }
+
+  .contentContainer {
+    padding: 6% 5%;
+  }
+}
+
 .aboutContainer{
 
 }

@@ -9,14 +9,72 @@ import styles from '@/utilities/page.module.css';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import ContactUsComponent from '@/components/Contactus.component';
+import { media } from '@/utilities/breakpoints';
 
 const StyledAboutComponent = styled(TextContainer)`
   p {
     font-size: 25px;
   }
+
+  ${media.tablet} {
+    p {
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+    }
+  }
 `;
+
+const HeroLogo = styled.img`
+  width: 40%;
+
+  ${media.tablet} {
+    width: min(70vw, 280px);
+  }
+`;
+
+const HomeSection = styled.div`
+  ${media.tablet} {
+    padding-top: 2%;
+  }
+`;
+
+const ProductionsSection = styled.div`
+  ${media.tablet} {
+    height: auto;
+    min-height: 100%;
+  }
+`;
+
+const ProductionsContentContainer = styled(HomeSection)`
+  background-color: white;
+  opacity: 70%;
+  height: 100%;
+  width: 100%;
+  padding: 3%;
+  position: relative;
+  z-index: 1;
+
+  ${media.tablet} {
+    height: auto;
+    min-height: 100%;
+    padding: 5% 4%;
+    opacity: 85%;
+  }
+`;
+
+const ProductionsCarouselWrap = styled.div`
+  margin-top: 5px;
+  padding: 2%;
+  position: relative;
+  z-index: 2;
+`;
+
 const Home = ({mediaItems, productions}) => {
   const router = useRouter();
+
+  const productionsFactor = 1;
+  const newsOffset = 3;
+  const awardsOffset = 4;
+  const contactOffset = 5;
 
   const handleItemClicked = (itemId) => {
     router.push(`/news/${itemId}`);
@@ -73,24 +131,24 @@ const Home = ({mediaItems, productions}) => {
         <ParallaxLayer
           offset={2}
           speed={-0.1}
-          factor={1}
+          factor={productionsFactor}
           style={{
              backgroundImage: url('/kukili3.png', true),
              backgroundSize: 'cover',
              backgroundPosition: 'center'
           }}>
-             <div className={styles.section}>
-                <div className={styles.contentContainer}>
+             <ProductionsSection className={styles.section}>
+                <ProductionsContentContainer>
                    <h2>Productions</h2>
-                   <div style={{marginTop: '5px', padding: '2%', zIndex:'999'}}>
+                   <ProductionsCarouselWrap>
                       <HorizontalCarousel items={productions} />
-                   </div>
-                </div>
-              </div>
+                   </ProductionsCarouselWrap>
+                </ProductionsContentContainer>
+              </ProductionsSection>
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={3}
+          offset={newsOffset}
           speed={-0.3}
           style={{
             backgroundSize: 'cover',
@@ -99,7 +157,7 @@ const Home = ({mediaItems, productions}) => {
           }}
         >
            <div className={styles.section}>
-            <div className= {styles.contentContainer}>
+            <HomeSection className={styles.contentContainer}>
                     <VerticalScroller 
                         items={mediaItems}
                         key={1}
@@ -115,7 +173,7 @@ const Home = ({mediaItems, productions}) => {
                       </TextContainer>
                        
                     </VerticalScroller>
-            </div>
+            </HomeSection>
           </div>
         </ParallaxLayer>
 
@@ -127,7 +185,7 @@ const Home = ({mediaItems, productions}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <img src={url('/monkeyScope.png', false)} style={{ width: '40%' }} />
+          <HeroLogo src={url('/monkeyScope.png', false)} alt="MonkeyScope" />
         </ParallaxLayer>
 
         <ParallaxLayer
@@ -139,7 +197,7 @@ const Home = ({mediaItems, productions}) => {
             justifyContent: 'center',
           }}>
             <div className={styles.section}>
-                <div className={styles.contentContainer}>
+                <HomeSection className={styles.contentContainer}>
                  <StyledAboutComponent 
                   // remove this later
                     title={'About'}
@@ -156,12 +214,12 @@ const Home = ({mediaItems, productions}) => {
                  >
                   <h2>{"About"}</h2>
                   </StyledAboutComponent>
-                </div>
+                </HomeSection>
              </div>
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={4}
+          offset={awardsOffset}
           speed={-0}
           style={{
             display: 'flex',
@@ -171,7 +229,7 @@ const Home = ({mediaItems, productions}) => {
            >
            
           <div className={styles.section}>
-              <div className={styles.contentContainer}>
+              <HomeSection className={styles.contentContainer}>
                  <TextContainer 
                   content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
                   Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
@@ -186,11 +244,11 @@ const Home = ({mediaItems, productions}) => {
                   <h2>{"Awards"}</h2>
                 </TextContainer>
               
-              </div>
+              </HomeSection>
           </div>
         </ParallaxLayer>
         <ParallaxLayer
-          offset={5}
+          offset={contactOffset}
           speed={-0}
           style={{
             display: 'flex',
@@ -202,11 +260,11 @@ const Home = ({mediaItems, productions}) => {
           }}
           >
              <div className={styles.section}>
-              <div className={styles.contentContainer}>
+              <HomeSection className={styles.contentContainer}>
                   <ContactUsComponent handleSubmitCb={submitHandler}>
                     <h2>{"Contact Us"}</h2>
                   </ContactUsComponent>
-              </div>
+              </HomeSection>
             </div>
         </ParallaxLayer>
         

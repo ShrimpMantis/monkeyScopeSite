@@ -4,6 +4,14 @@ import { ParallaxLayer } from "@react-spring/parallax";
 import { url } from "@/utilities/helper";
 import { useParams } from "next/navigation";
 import SideBySideTextImageStyled from "@/components/styledComponents/SideBySideTextImage.styled";
+import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
+
+const StyledTeamSection = styled.div`
+    ${media.tablet} {
+        padding: 12% 4% 4%;
+    }
+`;
 
 const action = async (id) => {
     const baseUrl = '/api/teamDetail';
@@ -44,6 +52,7 @@ const Page = () => {
                 speed={1}
                 factor={1}
             >
+                <StyledTeamSection>
                 <SideBySideTextImageStyled 
                     content={detail.content}
                     title={"Title"}
@@ -54,6 +63,7 @@ const Page = () => {
                 >
                     <h1>Name</h1>
                 </SideBySideTextImageStyled>
+                </StyledTeamSection>
             </ParallaxLayer>}
            
         </>

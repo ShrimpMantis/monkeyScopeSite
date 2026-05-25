@@ -3,6 +3,7 @@ import { useEffect, useState, memo} from "react";
 import styled from "styled-components";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { media } from "@/utilities/breakpoints";
 
 const StyledNavParent  = styled.div`
     display: flex;
@@ -13,9 +14,14 @@ const StyledNavParent  = styled.div`
     z-index:999;
     background-color: ${props =>props.$shouldChange || props.$shouldExpandMenu ? '#89CFF0': 'transparent'};
     color: ${props => props.$shouldChange || props.$shouldExpandMenu ? 'black' : 'white'};
-    height: ${props => props.$shouldExpandMenu ? '35%':'15%'};
+    height: ${props => props.$shouldExpandMenu ? 'auto' : '15%'};
+    min-height: ${props => props.$shouldExpandMenu ? '50vh' : '60px'};
     width:100%;
     transition: 0.5s ease-in;
+
+    ${media.tablet} {
+        min-height: ${props => props.$shouldExpandMenu ? '55vh' : '56px'};
+    }
 `;
 
 const StyledNavWrapper = styled.div`
@@ -23,46 +29,82 @@ const StyledNavWrapper = styled.div`
     flex-direction: row;
     gap:10px;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
-    padding-left: 2%;
-    padding-right: 2%;
-    font-size:27px;
+    padding: 2%;
+    font-size: clamp(1rem, 4vw, 1.7rem);
     cursor: pointer;
+
+    ${media.tablet} {
+        padding: 3% 4%;
+    }
 `;
 
 const StyledNavButton = styled.div`
     padding: 2%;
-    width: 15%;
+    width: auto;
+    min-width: 0;
     height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    ${media.tablet} {
+        padding: 1%;
+    }
 `;
 
 const StyledSpan = styled.span`
     padding: 2px;
     padding-left:10px;
     box-sizing:border-box;
-    min-height:50px;
-    min-width:50px;
-    height:100px;
-    width:100px;
+    min-height:40px;
+    min-width:40px;
+    height: auto;
     width: auto;
-    display:inline-block;
+    display:inline-flex;
+    align-items: center;
+    vertical-align: middle;
     &:hover {
      transition: transform 3s ease-in;
      transform: scale(1.2);
+    }
+
+    ${media.tablet} {
+        min-height: 36px;
+        min-width: 36px;
+        padding-left: 6px;
     }
 `;
 
 const StyledExpandedMenu = styled.div`
     display: ${props => props.$shouldExpand ? 'flex' : 'none'};
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     gap:10px;
-    height: ${props => props.$shouldExpand ? '100%' : '0%'};
-    
+    padding: 2% 4% 4%;
+    width: 100%;
+
+    ${media.tablet} {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 2% 6% 6%;
+    }
 `;
 
 const StyledLongMenuNavButton = styled(StyledNavButton)`
-    font-size:20px;
+    font-size: clamp(0.9rem, 3vw, 1.25rem);
+    width: auto;
+    text-align: center;
+
+    ${media.tablet} {
+        width: 100%;
+        padding: 3% 2%;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
     &:hover{
         transition: 3s ease-in;
         text-decoration: underline;
@@ -90,12 +132,10 @@ const MenuComponent = ({menuItems, shouldChangeFontColor}) => {
         setHasMounted(true);
     }, []);
 
-    //Use a variable to hold the icons, which defaults to a stable element
     const MenuIcon = hasMounted ? Menu : () => <span>M</span>;
     const XIcon = hasMounted ? X : () => <span>X</span>;
    
     const handleClick = () => {
-        //expand styledNavWrapper
         setShouldExpandMenu(!shouldExpandMenu);
     };
     const handleNavBtnClicked = () => {

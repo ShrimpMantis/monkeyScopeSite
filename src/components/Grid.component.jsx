@@ -1,6 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
 import FlashCardComponent from "./styledComponents/FlashCard.styled";
+import { media } from "@/utilities/breakpoints";
 
 const StyledTilesContainer = styled.div`
     display: flex;
@@ -11,11 +12,20 @@ const StyledTilesContainer = styled.div`
     justify-content: space-evenly;
     align-items: flex-start;
 
+    ${media.tablet} {
+        flex-direction: column;
+        align-items: stretch;
+        gap: ${props => props.$mobileTileGap ?? '16px'};
+    }
 `;
 const StyledParentContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 50px;
+
+    ${media.tablet} {
+        gap: 24px;
+    }
 `;
 
 const FlashCardComponentWrapper = styled.div`
@@ -24,9 +34,14 @@ const FlashCardComponentWrapper = styled.div`
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: 398px;
+
+    ${media.tablet} {
+        width: 100%;
+        flex-basis: auto;
+    }
 `;
 
-const GridComponent = ({childrenList, children, clickCb}) => {
+const GridComponent = ({childrenList, children, clickCb, mobileTileGap}) => {
     const Tiles = ({itemList}) => (
         <>
             {
@@ -51,7 +66,7 @@ const GridComponent = ({childrenList, children, clickCb}) => {
     return (
         <StyledParentContainer>
             {children}
-            <StyledTilesContainer>
+            <StyledTilesContainer $mobileTileGap={mobileTileGap}>
                 <Tiles itemList={childrenList}/>
             </StyledTilesContainer>
         </StyledParentContainer>

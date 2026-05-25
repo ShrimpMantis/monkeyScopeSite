@@ -1,6 +1,6 @@
 'use client'
 import { ParallaxLayer } from '@react-spring/parallax';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { url } from '@/utilities/helper';
 import TextContainerComponent from '@/components/TextContainer.component';
 import styles from '@/utilities/page.module.css';
@@ -10,6 +10,18 @@ import { useRouter } from 'next/navigation';
 
 const About = ({teamInfo, mission, vision, history, specializations}) => {
     const router = useRouter();
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        const updateViewport = () => setIsMobile(mediaQuery.matches);
+        updateViewport();
+        mediaQuery.addEventListener('change', updateViewport);
+        return () => mediaQuery.removeEventListener('change', updateViewport);
+    }, []);
+
+    const heroFactor = isMobile ? 1 : 3;
+
     const handleClickCb = () => {
         router.push('/productions');
     };
@@ -18,10 +30,11 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
     }
     return (
         <>
-                <ParallaxLayer offset={0} speed={0} factor={3}
+                <ParallaxLayer offset={0} speed={0} factor={heroFactor}
                     style={{
                     backgroundImage: url('/bhagoruwa.png', true),
-                    backgroundSize: 'contain'
+                    backgroundSize: isMobile ? 'cover' : 'contain',
+                    ...(isMobile ? { backgroundPosition: 'center' } : {}),
                 }}>
                 
                 </ParallaxLayer>
@@ -38,18 +51,18 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
                 </ParallaxLayer>
-
                 <ParallaxLayer offset={1.75} speed={0.5} style={{ opacity: 0.1 }}>
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '70%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '40%' }} />
                 </ParallaxLayer>
+
 
                 <ParallaxLayer offset={1} speed={0.2} style={{ opacity: 0.2 }}>
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '10%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '75%' }} />
                 </ParallaxLayer>
 
-                {/* <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
+          {/*       <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '60%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '25%', marginLeft: '30%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '80%' }} />
@@ -104,7 +117,11 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 <ParallaxLayer offset={2} speed={0} factor={0.99}>
                     <div className={styles.section}>
                         <div className={styles.contentContainer}>
-                            <GridComponent childrenList={teamInfo.teamList} clickCb={handleClickOnTeam}>
+                            <GridComponent
+                                childrenList={teamInfo.teamList}
+                                clickCb={handleClickOnTeam}
+                                mobileTileGap="100px"
+                            >
                                 <h2>{teamInfo.title}</h2>
                             </GridComponent>
                         </div>

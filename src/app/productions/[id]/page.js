@@ -6,6 +6,7 @@ import styles from '@/utilities/page.module.css';
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
 
 const action = async (id) => {
  const baseUrl = '/api/productionDetail';
@@ -17,6 +18,14 @@ const action = async (id) => {
 
 const StyledHeader = styled.h1`
     text-align:center;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    padding: 0 4%;
+`;
+
+const StyledDetailSection = styled.div`
+    ${media.tablet} {
+        padding-top: 8%;
+    }
 `;
 
 const Page = () => {
@@ -42,7 +51,7 @@ const Page = () => {
                 style={{
                     backgroundImage: url(`${detail?.mainImage?.src}`, true),
                     backgroundSize: 'contain',
-                   // backgroundColor:'red'
+                    backgroundPosition: 'center',
                 }}
             >
                 {/* <Image src={detail.mainImage.src} objectFit="contain" fill={true} alt={detail.mainImage.alt}/> */}
@@ -80,7 +89,7 @@ const Page = () => {
                 speed={4}
                 factor={0.5}
             >
-                <div className={styles.section}>
+                <StyledDetailSection className={styles.section}>
                     <div className={styles.contentContainer}>
                         <ProductionDetail
                             content={detail.content}
@@ -113,7 +122,7 @@ const Page = () => {
                             </div>
                         </ProductionDetail>
                     </div>
-                </div>
+                </StyledDetailSection>
             </ParallaxLayer>
 
         </>

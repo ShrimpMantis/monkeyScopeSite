@@ -1,6 +1,7 @@
 import { memo } from "react";
 import ImageContainerStyled from "./ImageContainer.styled";
 import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
 
 const StyledProfileInfoWrapper = styled.div`
     height: 20%;
@@ -8,6 +9,14 @@ const StyledProfileInfoWrapper = styled.div`
 const StyledImageWrapper = styled.div`
     height: 400px;
     overflow:hidden;
+
+    ${media.tablet} {
+        height: 220px;
+    }
+
+    ${media.mobile} {
+        height: 300px;
+    }
 `;
 const FlashCard = ({title, content, imageInfo, className}) => {
     return (
@@ -22,7 +31,6 @@ const FlashCard = ({title, content, imageInfo, className}) => {
         </div>
     );
 };
-//flex: 1 1 350px;
 const StyledFlashCard = styled(FlashCard)`
     display:flex;
     flex-direction:column;

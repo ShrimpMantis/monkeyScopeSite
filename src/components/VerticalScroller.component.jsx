@@ -3,16 +3,69 @@ import { memo, useCallback } from "react";
 import TextContainer from "./TextContainer.component";
 import styled from "styled-components";
 import ImageTextContainer from "./ImageText.component";
+import { media } from "@/utilities/breakpoints";
+import styles from "@/utilities/page.module.css";
 
 const StyledTextStickyContainer = styled(TextContainer)`
  width: 30%;
+ flex-shrink: 0;
+ z-index: 2;
  h2 {
     text-decoration-line: none;
  }
+
+ ${media.tablet} {
+    display: none;
+ }
+`;
+
+const MobileTitleHeader = styled.div`
+  display: none;
+
+  ${media.tablet} {
+    display: block;
+    width: 100%;
+    padding: 0 4% 20px;
+    text-align: center;
+    box-sizing: border-box;
+
+    h2 {
+      text-decoration-line: none;
+    }
+  }
 `;
 
 const StyledMediaContainer = styled(ImageTextContainer)`
-  width: 61%; 
+  width: 61%;
+  margin-left: auto;
+  flex-shrink: 0;
+
+  ${media.tablet} {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+`;
+
+const StyledScrollerWrapper = styled.div`
+  ${media.tablet} {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const StyledParallaxContent = styled.div`
+    width: 100%;
+    padding: 10% 10% 10% 2%;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+
+    ${media.tablet} {
+        padding: 4% 5%;
+        justify-content: stretch;
+    }
 `;
 
 const VerticalScroller = ({items, itemClickedHandler, children}) => {
@@ -21,28 +74,26 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
     const fetchStickyLayerStyle = useCallback((justifyContentPosition) => {
         return {
             ...alignCenter,
-            //needed here so that clicking on the div works
             pointerEvents: 'none',
             justifyContent: justifyContentPosition
         };
-    });
+    }, []);
     const fetchParallaxLayerStyle = useCallback((justifyContentPosition) => {
         {
             return {
                 ...alignCenter,
                 justifyContent: justifyContentPosition,
-                padding:'10%',
                 cursor: 'pointer',
             };
         };
-    }, items);
+    }, []);
 
     const fetchParallaxStyle = useCallback(() => {
         return {
             width: '100%',
             pointerEvents: 'auto'
         };
-    }, items);
+    }, []);
 
     const PagesList = ({pagesList, itemClickCallBack}) => {
         return pagesList.map((page, ind) => {
@@ -51,27 +102,31 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
                         style={fetchParallaxLayerStyle('flex-end')}
                         onClick={() => itemClickCallBack(ind)}
                         >
-                        <StyledMediaContainer
-                            content={page.content}
-                            title={page.title}
-                            key={`${ind}-text-container`}
-                            isPrimary={false}
-                            hasPicture={true}
-                            imageInfo={page.imageInfo}
-                        />
+                        <StyledParallaxContent>
+                            <StyledMediaContainer
+                                content={page.content}
+                                title={page.title}
+                                key={`${ind}-text-container`}
+                                isPrimary={false}
+                                hasPicture={true}
+                                imageInfo={page.imageInfo}
+                            />
+                        </StyledParallaxContent>
                     </ParallaxLayer>
             );
         });
     };
 
     return (
-        <div>
+        <StyledScrollerWrapper>
+            <MobileTitleHeader>{children}</MobileTitleHeader>
             <Parallax pages={numberOfPages} style={fetchParallaxStyle()} >
                 <ParallaxLayer sticky={{start: 0, end: numberOfPages}} style={fetchStickyLayerStyle('flex-start')}>
                     <StyledTextStickyContainer
                         isPrimary={false}
                         hasPicture={false}
                         key={'sticky-div-001'}
+                        className={styles.stickyContainer}
                     >
                        {children}
                     </StyledTextStickyContainer>
@@ -81,7 +136,7 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
                      itemClickCallBack={itemClickedHandler}
                 />
             </Parallax>
-        </div>
+        </StyledScrollerWrapper>
     );
 };
 

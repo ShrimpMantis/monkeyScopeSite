@@ -1,12 +1,24 @@
 import SideBySideTextImageStyled from "./styledComponents/SideBySideTextImage.styled";
 import HorizontalCarousel from "./HorizontalCarousel.component";
 import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
+
 const StyledListPara = styled.div`
     text-align: left;
     padding: 5%;
+
+    ${media.tablet} {
+        padding: 3% 4%;
+    }
 `;
 const StyledCarouselWrapper = styled.div`
     margin-top: 10%;
+    padding: 0 2%;
+
+    ${media.tablet} {
+        margin-top: 5%;
+        padding: 0 4%;
+    }
 `;
 const ProductionDetail = ({title, content, imageInfo, images, children, hrefParam}) => {
     return (
