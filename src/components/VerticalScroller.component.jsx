@@ -47,7 +47,7 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
     const PagesList = ({pagesList, itemClickCallBack}) => {
         return pagesList.map((page, ind) => {
             return(
-                    <ParallaxLayer key={ind} offset={ind} speed={1.5} factor={0.32} 
+                    <ParallaxLayer key={ind} offset={ind} speed={1.5} factor={0.99} 
                         style={fetchParallaxLayerStyle('flex-end')}
                         onClick={() => itemClickCallBack(ind)}
                         >

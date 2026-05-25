@@ -31,17 +31,18 @@ const StyledIconsWrapper = styled.div `
 `;
 
 const StyledImageLogo = styled.img`
-    width: 10%;
+    width: ${props => props.$shouldShow ? '10%' : '0'};
 `;
 
 const ImageWrapper = styled.div`
-    display: flex;
+    display: ${props => props.$shouldShow ? 'flex' : 'none'};
     flex-direction: row;
     justify-content: center;
     padding:1%;
 `;
 
 const FooterComponent = ({shouldRender}) => {
+    console.log("shouldRender", shouldRender);
     return(
         <StyledWrapper $shouldShow={shouldRender}>
             <StyledIconsWrapper>
@@ -58,8 +59,8 @@ const FooterComponent = ({shouldRender}) => {
                         <Youtube/>
                 </StyledFooterUnits>
             </StyledIconsWrapper>
-            <ImageWrapper>
-                <StyledImageLogo src="/whiteLogoText.webp" alt="monkeyScopeText"/>
+            <ImageWrapper $shouldShow={shouldRender}>
+                <StyledImageLogo $shouldShow= {shouldRender} src="/whiteLogoText.webp" alt="monkeyScopeText"/>
             </ImageWrapper>
         </StyledWrapper>
     );

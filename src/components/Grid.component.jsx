@@ -18,14 +18,22 @@ const StyledParentContainer = styled.div`
     gap: 50px;
 `;
 
+const FlashCardComponentWrapper = styled.div`
+    overflow: hidden;
+    width: 30%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 398px;
+`;
+
 const GridComponent = ({childrenList, children, clickCb}) => {
     const Tiles = ({itemList}) => (
         <>
             {
                 itemList.map((child, index) => {
                     return (
-                        <div style={{overflow:'hidden', width:'30%'}} key={`${index}-flash-parent-div`} 
-                            onClick={() =>clickCb(index)}>
+                        <FlashCardComponentWrapper key={`${index}-flash-parent-div`} 
+                            onClick={() => clickCb(index)}>
                             <FlashCardComponent
                                 imageInfo={child.imageInfo}
                                 content={child.description}
@@ -33,7 +41,7 @@ const GridComponent = ({childrenList, children, clickCb}) => {
                                 key={`${index}-flash-card-component`}
 
                             />
-                        </div>
+                        </FlashCardComponentWrapper>
                     );
                 })
             }

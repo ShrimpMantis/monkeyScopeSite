@@ -8,6 +8,7 @@ import { url } from '@/utilities/helper';
 import styles from '@/utilities/page.module.css';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
+import ContactUsComponent from '@/components/Contactus.component';
 
 const StyledAboutComponent = styled(TextContainer)`
   p {
@@ -19,6 +20,10 @@ const Home = ({mediaItems, productions}) => {
 
   const handleItemClicked = (itemId) => {
     router.push(`/news/${itemId}`);
+  };
+
+  const submitHandler = (e) => {
+    console.log("formSubmit", e);
   };
     return (
       <>
@@ -100,8 +105,6 @@ const Home = ({mediaItems, productions}) => {
                         key={1}
                         itemClickedHandler={handleItemClicked}
                     >
-                      {/* <div>
-                      </div> */}
                       <TextContainer 
                         title={'Latest News'}
                         showButton={false}
@@ -182,6 +185,7 @@ const Home = ({mediaItems, productions}) => {
                  >
                   <h2>{"Awards"}</h2>
                 </TextContainer>
+              
               </div>
           </div>
         </ParallaxLayer>
@@ -197,6 +201,13 @@ const Home = ({mediaItems, productions}) => {
             backgroundPosition: 'center'
           }}
           >
+             <div className={styles.section}>
+              <div className={styles.contentContainer}>
+                  <ContactUsComponent handleSubmitCb={submitHandler}>
+                    <h2>{"Contact Us"}</h2>
+                  </ContactUsComponent>
+              </div>
+            </div>
         </ParallaxLayer>
         
       </>
