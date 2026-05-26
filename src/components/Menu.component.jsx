@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { media } from "@/utilities/breakpoints";
+import { touchTarget, typography } from "@/utilities/accessibility";
 
 const StyledNavParent  = styled.div`
     display: flex;
@@ -58,21 +59,21 @@ const StyledSpan = styled.span`
     padding: 2px;
     padding-left:10px;
     box-sizing:border-box;
-    min-height:40px;
-    min-width:40px;
+    min-height: ${touchTarget.min};
+    min-width: ${touchTarget.min};
     height: auto;
     width: auto;
     display:inline-flex;
     align-items: center;
+    justify-content: center;
     vertical-align: middle;
+    touch-action: manipulation;
     &:hover {
-     transition: transform 3s ease-in;
-     transform: scale(1.2);
+     transition: transform 0.2s ease-in;
+     transform: scale(1.05);
     }
 
     ${media.tablet} {
-        min-height: 36px;
-        min-width: 36px;
         padding-left: 6px;
     }
 `;
@@ -95,18 +96,23 @@ const StyledExpandedMenu = styled.div`
 `;
 
 const StyledLongMenuNavButton = styled(StyledNavButton)`
-    font-size: clamp(0.9rem, 3vw, 1.25rem);
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    line-height: ${typography.bodyLineHeight};
     width: auto;
     text-align: center;
+    min-height: ${touchTarget.min};
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     ${media.tablet} {
         width: 100%;
-        padding: 3% 2%;
+        padding: 12px 8px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     &:hover{
-        transition: 3s ease-in;
+        transition: 0.2s ease-in;
         text-decoration: underline;
     }
 `;

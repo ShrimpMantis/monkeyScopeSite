@@ -20,10 +20,17 @@ const ImageTextContainerStyled = styled(ImageTextContainer)`
     overflow: hidden;
     h3 {
         text-align: left;
+        padding-left: 9%;
+        padding-right: 9%;
+        box-sizing: border-box;
     }
     p {
         text-align: left;
-        font-size: clamp(0.85rem, 3vw, 1rem);
+        font-size: max(1rem, 16px);
+        line-height: 1.6;
+        padding-left: 9%;
+        padding-right: 9%;
+        padding-top: 1%;
     }
 
     img {

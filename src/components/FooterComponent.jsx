@@ -2,6 +2,7 @@
 import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import styled from "styled-components";
 import { media } from "@/utilities/breakpoints";
+import { touchTarget } from "@/utilities/accessibility";
 
 const StyledWrapper = styled.div`
     width: 100%;
@@ -27,7 +28,11 @@ const StyledWrapper = styled.div`
 
 const StyledFooterUnits = styled.div`
     width: 10%;
-    display: ${props => props.$shouldShow ? 'block' : 'none'};
+    display: ${props => props.$shouldShow ? 'flex' : 'none'};
+    align-items: center;
+    justify-content: center;
+    min-width: ${touchTarget.min};
+    min-height: ${touchTarget.min};
     text-align: center;
 
     ${media.tablet} {

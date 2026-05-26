@@ -29,9 +29,9 @@ const StyledParentWrapper = styled.div`
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(10px, 2vw, 16px);
     width: 100%;
-    max-width: 1200px;
+    max-width: var(--grid-max-width);
     margin: 0 auto;
-    padding: 0 2%;
+    padding: 0 var(--page-gutter);
     box-sizing: border-box;
 
     ${media.tablet} {
