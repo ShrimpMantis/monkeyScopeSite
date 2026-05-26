@@ -61,6 +61,7 @@ const StyledParallaxContent = styled.div`
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
+    height: 700px;
 
     ${media.tablet} {
         padding: 4% 5%;

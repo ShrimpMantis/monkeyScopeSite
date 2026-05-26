@@ -1,158 +1,259 @@
 import styled from "styled-components";
 import { media } from "@/utilities/breakpoints";
+import { touchTarget, typography, layout } from "@/utilities/accessibility";
+
+const fieldStyles = `
+    width: 100%;
+    min-width: 0;
+    min-height: ${touchTarget.min};
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #171717;
+    font-size: ${typography.input};
+    line-height: ${typography.bodyLineHeight};
+    box-sizing: border-box;
+    touch-action: manipulation;
+
+    &::placeholder {
+        color: #666;
+    }
+
+    &:focus-visible {
+        outline: 2px solid #89cff0;
+        outline-offset: 2px;
+    }
+`;
 
 const ContactUsContainer = styled.div`
     background-color: black;
-    opacity: 60%;
+    opacity: 0.9;
     color: white;
-`;
-const StyledDivContainer = styled.div`
-    padding: 5%;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    ${media.tablet} {
-        flex-direction: column;
-        padding: 4%;
-        gap: 16px;
-    }
-`;
-const RowContainer = styled.div`
-    padding: 2%;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    flex-wrap: wrap;
-
-    ${media.tablet} {
-        flex-direction: column;
-        padding: 1% 0;
-        gap: 8px;
-    }
-`;
-const StyledInputElement = styled.input`
-    padding: 1%;
-    border-radius: 5px;
-    font-size: 15px;
-    flex: 1;
-    min-width: 0;
-
-    ${media.tablet} {
-        width: 100%;
-        padding: 3%;
-        font-size: 16px;
-    }
-`;
-
-const StyledTextArea = styled.textarea`
-    padding: 1%;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
 
-    ${media.tablet} {
-        padding: 3%;
-        font-size: 16px;
+    h2 {
+        padding: var(--space-sm) var(--page-gutter);
+        margin: 0;
+    }
+`;
+
+const StyledDivContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    width: 100%;
+    max-width: ${layout.contentMaxWidth};
+    margin-inline: auto;
+    padding: var(--space-md) var(--page-gutter);
+    box-sizing: border-box;
+
+    ${media.mobileOnly} {
+        gap: var(--space-md);
+        padding: var(--space-sm) var(--page-gutter);
+    }
+
+    ${media.tabletPortrait} {
+        gap: var(--space-lg);
+    }
+
+    ${media.tabletLandscape} {
+        grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        align-items: start;
+        gap: var(--space-xl);
+    }
+
+    ${media.laptop} {
+        padding: var(--space-lg) var(--page-gutter);
+    }
+
+    ${media.desktopScreen} {
+        max-width: ${layout.gridMaxWidth};
+        gap: var(--space-xl);
+    }
+
+    ${media.ultraWide} {
+        max-width: ${layout.gridMaxWidth};
+        gap: var(--space-2xl);
+        padding: var(--space-xl) var(--page-gutter);
+    }
+`;
+
+const RowContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    padding-block: var(--space-xs);
+    width: 100%;
+
+    ${media.notMobile} {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+`;
+
+const SingleRowContainer = styled.div`
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+    padding-block: var(--space-xs);
+    width: 100%;
+`;
+
+const StyledInputElement = styled.input`
+    ${fieldStyles}
+`;
+
+const StyledTextArea = styled.textarea`
+    ${fieldStyles}
+    min-height: clamp(120px, 20vh, 220px);
+    resize: vertical;
+
+    ${media.mobileOnly} {
+        min-height: clamp(100px, 18vh, 160px);
+    }
+
+    ${media.ultraWide} {
+        min-height: clamp(140px, 16vh, 260px);
     }
 `;
 
 const StyledFormContainer = styled.div`
-    padding: 2%;
-    width:50%;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
 
-    ${media.tablet} {
+    form {
         width: 100%;
-        padding: 0;
     }
 `;
 
 const StyledAddressContainer = styled.div`
-    padding: 2%;
-    width:50%;
+    width: 100%;
+    min-width: 0;
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-sm);
+    text-align: left;
+    line-height: ${typography.bodyLineHeight};
+    font-size: ${typography.body};
 
-    ${media.tablet} {
-        width: 100%;
-        padding: 0;
+    p,
+    address {
+        max-width: ${layout.proseMaxWidth};
+        margin: 0;
+        color: inherit;
+    }
+
+    ${media.mobileOnly} {
+        padding: var(--space-sm) 0;
         text-align: center;
+        align-items: center;
+    }
+
+    ${media.tabletPortrait} {
+        text-align: center;
+        align-items: center;
+    }
+
+    ${media.tabletLandscape} {
+        text-align: left;
+        align-items: flex-start;
+        padding: var(--space-md) 0 0;
+    }
+
+    ${media.laptopUp} {
+        padding: var(--space-lg) 0 0 var(--space-md);
     }
 `;
-const StyledBtn = styled.input `
-    padding: 2%;
-    width: 30%;
-    border-radius: 10px;
-    font-size: 14px;
-    box-shadow: 2px 2px 2px gray;
-    border-color: transparent;
+
+const StyledBtn = styled.input`
+    ${fieldStyles}
+    width: 100%;
+    max-width: min(280px, 100%);
     cursor: pointer;
+    font-weight: 600;
+    background-color: #2c6878;
+    color: white;
+    border-color: #2c6878;
+
+    &:hover {
+        background-color: #245a68;
+    }
+
+    ${media.mobileOnly} {
+        max-width: 100%;
+    }
 
     ${media.tablet} {
-        width: 100%;
-        padding: 4%;
-        font-size: 16px;
+        max-width: 100%;
+    }
+
+    ${media.laptopUp} {
+        max-width: min(240px, 100%);
     }
 `;
 
 const ContactUsComponent = ({children, handleSubmitCb}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("handleSubmitBtn", e.target);
         const formComponent = e.target;
-        let formObjects = formComponent.getElementsByTagName('input');
-        let textAreaObj = formComponent.getElementsByTagName('textarea');
-        let formInfoObject = {};
-        Array.from(formObjects).forEach((obj, index) => {
-            switch(obj.name){
+        const formObjects = formComponent.getElementsByTagName('input');
+        const textAreaObj = formComponent.getElementsByTagName('textarea');
+        const formInfoObject = {};
+
+        Array.from(formObjects).forEach((obj) => {
+            switch (obj.name) {
                 case "firstName":
                     formInfoObject["fullName"] = obj.value;
                     break;
                 case "lastName":
-                    const fullName = formInfoObject["fullName"] + " "+ obj.value;
-                    formInfoObject["fullName"] = fullName;
+                    formInfoObject["fullName"] = `${formInfoObject["fullName"]} ${obj.value}`;
                     break;
                 case "email":
                     formInfoObject["email"] = obj.value;
                     break;
+                default:
+                    break;
             }
         });
-       
-        const message = Array.from(textAreaObj).map((obj, index) =>  obj.value).join(' ');
+
+        const message = Array.from(textAreaObj).map((obj) => obj.value).join(' ');
         formInfoObject["message"] = message;
         handleSubmitCb(formInfoObject);
     };
+
     return (
         <ContactUsContainer>
             {children}
             <StyledDivContainer>
                 <StyledFormContainer>
-                    <form action={"/message"} onSubmit={handleSubmit} >
+                    <form action="/message" onSubmit={handleSubmit}>
                         <RowContainer>
-                            <StyledInputElement type="text" id="firstNameId" placeholder="First Name" name="firstName"/>
-                            <StyledInputElement type="text" id="lastNameId" placeholder="Last Name" name="lastName"/>
+                            <StyledInputElement type="text" id="firstNameId" placeholder="First Name" name="firstName" autoComplete="given-name" />
+                            <StyledInputElement type="text" id="lastNameId" placeholder="Last Name" name="lastName" autoComplete="family-name" />
                         </RowContainer>
                         <RowContainer>
-                            <StyledInputElement type="email" id="userEmailId" placeholder="Your Email" name="email"/>
-                            <StyledInputElement type="phoneNumber" id="phoneNumber" placeholder="Your Phone Number" name="phoneNumber"/>
+                            <StyledInputElement type="email" id="userEmailId" placeholder="Your Email" name="email" autoComplete="email" />
+                            <StyledInputElement type="tel" id="phoneNumber" placeholder="Your Phone Number" name="phoneNumber" autoComplete="tel" />
                         </RowContainer>
-                    <RowContainer>
-                            <StyledTextArea id="textAreaId" placeholder="Message" rows={10} name="message"/>
-                    </RowContainer>
-                    <RowContainer>
-                           <StyledBtn type="submit" value="Submit"/>
-                    </RowContainer>
+                        <SingleRowContainer>
+                            <StyledTextArea id="textAreaId" placeholder="Message" rows={8} name="message" />
+                        </SingleRowContainer>
+                        <SingleRowContainer>
+                            <StyledBtn type="submit" value="Submit" />
+                        </SingleRowContainer>
                     </form>
                 </StyledFormContainer>
                 <StyledAddressContainer>
-                    <p>
-                        {"My address is Birubari"}
-                    </p>
-                    <address>
-                       {"Assam India"}
-                    </address>
+                    <p>My address is Birubari</p>
+                    <address>Assam India</address>
                 </StyledAddressContainer>
             </StyledDivContainer>
         </ContactUsContainer>
-
     );
 };
 

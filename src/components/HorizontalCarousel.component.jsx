@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { media } from "@/utilities/breakpoints";
+import { touchTarget } from "@/utilities/accessibility";
 const { Parallax, ParallaxLayer } = require("@react-spring/parallax");
 const { default: ImageContainerStyled } = require("./styledComponents/ImageContainer.styled");
 
@@ -35,8 +36,10 @@ const CarouselNavButton = styled.button`
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
-    width: 44px;
-    height: 44px;
+    width: ${touchTarget.min};
+    height: ${touchTarget.min};
+    min-width: ${touchTarget.min};
+    min-height: ${touchTarget.min};
     border: 2px solid #2c6878;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.95);
@@ -48,6 +51,7 @@ const CarouselNavButton = styled.button`
     align-items: center;
     justify-content: center;
     padding: 0;
+    touch-action: manipulation;
 
     &:disabled {
         opacity: 0.35;
@@ -57,12 +61,6 @@ const CarouselNavButton = styled.button`
     &:not(:disabled):hover {
         background: #2c6878;
         color: white;
-    }
-
-    ${media.tablet} {
-        width: 36px;
-        height: 36px;
-        font-size: 20px;
     }
 `;
 

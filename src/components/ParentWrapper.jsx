@@ -15,6 +15,9 @@ const getPageCount = (pathValue, isMobile) => {
     if (pathValue === 'about') {
         return isMobile ? 6.5 : 6;
     }
+    if (!pathValue || pathValue === 'home') {
+        return isMobile ? 7.5 : 7;
+    }
     return isMobile ? 6.5 : 6;
 };
 
@@ -101,15 +104,16 @@ const ParentWrapper = ({children, menuItems}) => {
     }, [hasMounted, customKey, pagesCount, isMobile]);
 
     if (!hasMounted) {
-        return <div style={{ minHeight: '100vh', background: '#253237' }} />; 
+        return <div style={{ minHeight: '100vh' }} />; 
     } 
-   
+    /* background: '#253237' */
+    
     return (
         <>
             <div className="menuContainer">
                 <MenuComponent menuItems={menuItems} shouldChangeFontColor={shouldChangeFontColor}/> 
             </div> 
-                <div style={{ width: '100%', height: '100dvh', minHeight: '100vh', background: '#253237', position: 'relative' }} >
+                <div style={{ width: '100%', height: '100dvh', minHeight: '100vh', position: 'relative' }} >
                     <Parallax pages={pagesCount}  ref={currentRef} key={customKey}>
                         {children}
                     </Parallax>
@@ -117,6 +121,7 @@ const ParentWrapper = ({children, menuItems}) => {
             <FooterComponent shouldRender={shouldShowFooter}/>
         </>
     );
+     /* background: '#253237', background: '#253237' */
 };
 
 export default ParentWrapper;

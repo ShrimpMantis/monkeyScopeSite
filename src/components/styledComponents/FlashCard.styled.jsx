@@ -40,6 +40,16 @@ const StyledFlashCard = styled(FlashCard)`
         flex-direction: column;
         gap: 10px;
     }
+
+    p {
+        line-height: 1.6;
+    }
+
+    ${media.tablet} {
+        p {
+            font-size: max(1rem, 16px);
+        }
+    }
 `;
 
 export default memo(StyledFlashCard);

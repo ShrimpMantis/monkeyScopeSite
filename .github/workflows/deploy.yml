@@ -1,0 +1,140 @@
+# =============================================================================
+# GitHub Actions → Google Artifact Registry → Cloud Run (Workload Identity)
+# =============================================================================
+#
+# Required GitHub repository configuration:
+#
+# SECRETS (Settings → Secrets and variables → Actions → Secrets):
+#   WIF_PROVIDER          Full WIF provider resource name, e.g.
+#                         projects/123456789/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+#   WIF_SERVICE_ACCOUNT   GCP service account email impersonated by GitHub, e.g.
+#                         github-deployer@my-project.iam.gserviceaccount.com
+#
+# VARIABLES (Settings → Secrets and variables → Actions → Variables):
+#   GCP_PROJECT_ID        GCP project ID, e.g. my-gcp-project
+#   GAR_LOCATION          Artifact Registry + Cloud Run region, e.g. us-central1
+#   GAR_REPOSITORY        Artifact Registry repository name, e.g. monkeyscope
+#   SERVICE_NAME          Cloud Run service name, e.g. monkeyscope
+#
+# GCP prerequisites (one-time, outside this workflow):
+#   1. Enable APIs: artifactregistry.googleapis.com, run.googleapis.com, iamcredentials.googleapis.com
+#   2. Create Artifact Registry Docker repository in GAR_LOCATION
+#   3. Configure Workload Identity Federation pool/provider for GitHub OIDC
+#   4. Grant the service account:
+#        - roles/artifactregistry.writer
+#        - roles/run.admin
+#        - roles/iam.serviceAccountUser (on the Cloud Run runtime SA if different)
+# =============================================================================
+
+name: Build and Deploy to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Cancel older runs when new commits land on main (saves Action minutes).
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+  GAR_LOCATION: ${{ vars.GAR_LOCATION }}
+  GAR_REPOSITORY: ${{ vars.GAR_REPOSITORY }}
+  SERVICE_NAME: ${{ vars.SERVICE_NAME }}
+  IMAGE: ${{ vars.GAR_LOCATION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GAR_REPOSITORY }}/${{ vars.SERVICE_NAME }}:${{ github.sha }}
+
+jobs:
+  deploy:
+    name: Build, Push, and Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # -----------------------------------------------------------------------
+      # 1. Checkout repository (includes Dockerfile at repo root)
+      # -----------------------------------------------------------------------
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # 2. Authenticate to GCP via Workload Identity Federation (OIDC)
+      #    No long-lived JSON service account keys stored in GitHub.
+      # -----------------------------------------------------------------------
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+
+      # -----------------------------------------------------------------------
+      # 3. Install gcloud CLI (used for Docker auth helper + Cloud Run deploy)
+      # -----------------------------------------------------------------------
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ vars.GCP_PROJECT_ID }}
+
+      # -----------------------------------------------------------------------
+      # 4. Configure Docker to push to Google Artifact Registry
+      # -----------------------------------------------------------------------
+      - name: Configure Docker for Artifact Registry
+        run: |
+          set -euo pipefail
+          gcloud auth configure-docker "${GAR_LOCATION}-docker.pkg.dev" --quiet
+
+      # -----------------------------------------------------------------------
+      # 5. Build Docker image (tagged with commit SHA) and push to GAR
+      # -----------------------------------------------------------------------
+      - name: Build and push Docker image
+        run: |
+          set -euo pipefail
+          echo "Building image: ${IMAGE}"
+          docker build --file Dockerfile --tag "${IMAGE}" .
+          docker push "${IMAGE}"
+
+      # -----------------------------------------------------------------------
+      # 6. Deploy the new image to Cloud Run
+      # -----------------------------------------------------------------------
+      - name: Deploy to Cloud Run
+        id: deploy
+        run: |
+          set -euo pipefail
+          gcloud run deploy "${SERVICE_NAME}" \
+            --image "${IMAGE}" \
+            --project "${GCP_PROJECT_ID}" \
+            --region "${GAR_LOCATION}" \
+            --platform managed \
+            --allow-unauthenticated \
+            --quiet
+
+          SERVICE_URL="$(gcloud run services describe "${SERVICE_NAME}" \
+            --project "${GCP_PROJECT_ID}" \
+            --region "${GAR_LOCATION}" \
+            --platform managed \
+            --format 'value(status.url)')"
+          echo "url=${SERVICE_URL}" >> "${GITHUB_OUTPUT}"
+          echo "Deployed successfully: ${SERVICE_URL}"
+
+      - name: Deployment summary
+        if: success()
+        run: |
+          set -euo pipefail
+          {
+            echo "### Cloud Run deployment"
+            echo ""
+            echo "| Key | Value |"
+            echo "| --- | --- |"
+            echo "| Service | \`${SERVICE_NAME}\` |"
+            echo "| Region | \`${GAR_LOCATION}\` |"
+            echo "| Image | \`${IMAGE}\` |"
+            echo "| URL | ${{ steps.deploy.outputs.url }} |"
+          } >> "${GITHUB_STEP_SUMMARY}"

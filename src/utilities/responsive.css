@@ -1,0 +1,110 @@
+/*
+ * Fluid responsive tokens — scale smoothly via clamp() with light breakpoint tuning.
+ * Import from globals.css.
+ */
+
+:root {
+  /* Layout */
+  --page-gutter: clamp(1rem, 3vw, 3rem);
+  --section-gap: clamp(1.25rem, 3vw, 2.5rem);
+  --content-max-width: min(72rem, 100% - (var(--page-gutter) * 2));
+  --prose-max-width: min(65ch, 100% - (var(--page-gutter) * 2));
+  --grid-max-width: min(80rem, 100% - (var(--page-gutter) * 2));
+
+  /* Spacing scale */
+  --space-2xs: clamp(0.25rem, 0.4vw, 0.375rem);
+  --space-xs: clamp(0.5rem, 0.8vw, 0.75rem);
+  --space-sm: clamp(0.75rem, 1.2vw, 1rem);
+  --space-md: clamp(1rem, 2vw, 1.5rem);
+  --space-lg: clamp(1.25rem, 2.5vw, 2rem);
+  --space-xl: clamp(1.75rem, 3.5vw, 3rem);
+  --space-2xl: clamp(2.25rem, 5vw, 4rem);
+
+  /* Typography scale */
+  --font-size-body: clamp(1rem, 0.35vw + 0.92rem, 1.125rem);
+  --font-size-body-min: 16px;
+  --font-size-lead: clamp(1.0625rem, 0.5vw + 0.95rem, 1.25rem);
+  --font-size-h3: clamp(1.125rem, 0.8vw + 0.95rem, 1.5rem);
+  --font-size-h2: clamp(1.5rem, 1.6vw + 1rem, 2.5rem);
+  --font-size-h1: clamp(1.75rem, 2.2vw + 1rem, 3rem);
+  --line-height-body: 1.6;
+  --line-height-heading: 1.25;
+  --paragraph-spacing: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  :root {
+    --page-gutter: clamp(1rem, 4vw, 1.25rem);
+    --section-gap: clamp(1rem, 4vw, 1.5rem);
+  }
+}
+
+/* Tablet portrait */
+@media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
+  :root {
+    --page-gutter: clamp(1.25rem, 4vw, 2rem);
+    --content-max-width: min(42rem, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Tablet landscape */
+@media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+  :root {
+    --page-gutter: clamp(1.5rem, 3vw, 2.5rem);
+    --content-max-width: min(56rem, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Laptop */
+@media (min-width: 1025px) and (max-width: 1280px) {
+  :root {
+    --content-max-width: min(64rem, 100% - (var(--page-gutter) * 2));
+    --grid-max-width: min(72rem, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Desktop */
+@media (min-width: 1281px) and (max-width: 1920px) {
+  :root {
+    --content-max-width: min(72rem, 100% - (var(--page-gutter) * 2));
+    --grid-max-width: min(80rem, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Ultra-wide */
+@media (min-width: 1921px) {
+  :root {
+    --page-gutter: clamp(2rem, 2vw, 4rem);
+    --content-max-width: min(90rem, 100% - (var(--page-gutter) * 2));
+    --grid-max-width: min(100rem, 100% - (var(--page-gutter) * 2));
+    --prose-max-width: min(70ch, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Shared layout utilities */
+.container,
+.layout-container {
+  width: min(var(--content-max-width), 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.grid-container {
+  width: min(var(--grid-max-width), 100%);
+  max-width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.prose,
+.readable {
+  max-width: var(--prose-max-width);
+  margin-inline: auto;
+}
+
+.prose p,
+.readable p {
+  max-width: var(--prose-max-width);
+}

@@ -14,11 +14,13 @@ import { media } from '@/utilities/breakpoints';
 const StyledAboutComponent = styled(TextContainer)`
   p {
     font-size: 25px;
+    line-height: 1.6;
   }
 
   ${media.tablet} {
     p {
-      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      font-size: max(1rem, clamp(1rem, 3.5vw, 1.125rem));
+      line-height: 1.6;
     }
   }
 `;
@@ -68,6 +70,15 @@ const ProductionsCarouselWrap = styled.div`
   z-index: 2;
 `;
 
+const ContactSection = styled.div`
+  width: 100%;
+  padding-bottom: clamp(80px, 10vh, 120px);
+
+  ${media.tablet} {
+    padding-bottom: clamp(140px, 20vh, 200px);
+  }
+`;
+
 const Home = ({mediaItems, productions}) => {
   const router = useRouter();
 
@@ -75,6 +86,8 @@ const Home = ({mediaItems, productions}) => {
   const newsOffset = 3;
   const awardsOffset = 4;
   const contactOffset = 5;
+  const footerOffset = 6.2;
+  const footerFactor = 0.7;
 
   const handleItemClicked = (itemId) => {
     router.push(`/news/${itemId}`);
@@ -250,23 +263,31 @@ const Home = ({mediaItems, productions}) => {
         <ParallaxLayer
           offset={contactOffset}
           speed={-0}
+          factor={1.15}
           style={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'center',
             backgroundImage: url('/bhag.png', true),
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
           >
-             <div className={styles.section}>
+             <ContactSection className={styles.section}>
               <HomeSection className={styles.contentContainer}>
                   <ContactUsComponent handleSubmitCb={submitHandler}>
                     <h2>{"Contact Us"}</h2>
                   </ContactUsComponent>
               </HomeSection>
-            </div>
+            </ContactSection>
         </ParallaxLayer>
+
+        <ParallaxLayer
+          offset={footerOffset}
+          speed={0}
+          factor={footerFactor}
+          style={{ backgroundColor: 'transparent' }}
+        />
         
       </>
         

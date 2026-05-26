@@ -42,6 +42,7 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 <ParallaxLayer offset={2} speed={1} style={{ backgroundColor: '#FAF7EF' }} />
                 {/* 805E73 */}
                 {/* 87BCDE */}
+                {/* #FAF7EF, #FAF7EF */}
 
                 <ParallaxLayer offset={1.3} speed={-0.3} style={{ pointerEvents: 'none' }}>
                 <img src={url('/monkeyScope.png', false)} style={{ width: '15%', marginLeft: '70%' }} />
