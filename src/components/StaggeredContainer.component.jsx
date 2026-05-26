@@ -1,5 +1,6 @@
 import SideBySideTextImageContainer from "./styledComponents/SideBySideTextImage.styled";
 import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
 
 const StyledDivWrapper = styled.div`
     display: flex;
@@ -8,6 +9,11 @@ const StyledDivWrapper = styled.div`
     justify-content:space-evenly;
     padding:5%;
     height:100%;
+
+    ${media.tablet} {
+        padding: 3%;
+        gap: 24px;
+    }
 `;
 
 const StaggeredContainer = ({sections, children, btnText, clickCb}) => {

@@ -1,5 +1,6 @@
 import ImageContainerStyled from "@/components/styledComponents/ImageContainer.styled";
 import styled from "styled-components";
+import { media } from "@/utilities/breakpoints";
 
 
 const ImageTextContainer = ({title, content, imageInfo, className, clickCallBack}) => {
@@ -22,6 +23,22 @@ const ImageTextContainerStyled = styled(ImageTextContainer)`
     }
     p {
         text-align: left;
+        font-size: clamp(0.85rem, 3vw, 1rem);
+    }
+
+    img {
+        max-height: 320px;
+        object-fit: cover;
+    }
+
+    ${media.tablet} {
+        img {
+            max-height: 220px;
+        }
+
+        h3, p {
+            padding: 0 2%;
+        }
     }
 `;
 

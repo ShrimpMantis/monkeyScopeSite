@@ -10,6 +10,11 @@ const ImageContainerStyled = styled.img`
     }
     object-fit: cover;
     overflow: hidden;
+   
+    max-width: 600px;
+    max-height: 600px;
+    object-position: right;
+    margin: auto;
 `;
 
 export default ImageContainerStyled;

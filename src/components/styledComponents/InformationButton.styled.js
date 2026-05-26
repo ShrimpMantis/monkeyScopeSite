@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { media } from "@/utilities/breakpoints";
 
-//2c6878
 const InformationButtonStyled = styled.span`
     background: ${props => props.$primary ? "#2c6878" : "white"}; 
     color: ${props => props.$primary ? "white" : "#2c6878"};
@@ -12,6 +12,7 @@ const InformationButtonStyled = styled.span`
     cursor: pointer;
     opacity: 100%;
     width: 200px;
+    max-width: 100%;
     height: 40px;
     padding: 10px 5px;
     z-index:10;
@@ -22,6 +23,12 @@ const InformationButtonStyled = styled.span`
     }
     display: inline-block;
     text-align:center;
+
+    ${media.tablet} {
+        width: min(200px, 80vw);
+        margin: 10px auto;
+        display: block;
+    }
 `;
 
 export const InformationButton = ({children, hrefParam}) => {

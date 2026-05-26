@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ImageContainerStyled from "./ImageContainer.styled";
 import TextContainerComponent from "../TextContainer.component";
 import { memo } from "react";
+import { media } from "@/utilities/breakpoints";
 
 const StyledParent = styled.div`
     display: flex;
@@ -12,18 +13,34 @@ const StyledParent = styled.div`
     padding:2%;
     flex-direction: ${props=> props.$isFlip ? 'row-reverse' : 'row'};
     text-align: left;
-    
+
+    ${media.tablet} {
+        flex-direction: column;
+        padding: 4%;
+        gap: 16px;
+    }
 `;
 
 const StyledImageContainer = styled.div`
     width:40%;
     flex-basis: 1 1 400px;
     overflow: hidden;
+
+    ${media.tablet} {
+        width: 100%;
+        flex-basis: auto;
+        max-height: 260px;
+    }
 `;
 
 const StyleTextCompContainer = styled.div`
     width: 50%;
-    flex-basis: 1 1 600px
+    flex-basis: 1 1 600px;
+
+    ${media.tablet} {
+        width: 100%;
+        flex-basis: auto;
+    }
 `;
 
 const SideBySideTextImageContainer = ({isFlip, imageInfo, content, title, children, btnText, hrefValue}) => {
