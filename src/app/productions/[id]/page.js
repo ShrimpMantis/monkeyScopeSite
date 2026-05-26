@@ -50,7 +50,7 @@ const Page = () => {
                 factor={1}
                 style={{
                     backgroundImage: url(`${detail?.mainImage?.src}`, true),
-                    backgroundSize: 'contain',
+                    backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
             >

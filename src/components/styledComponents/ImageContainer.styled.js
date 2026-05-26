@@ -14,7 +14,7 @@ const ImageContainerStyled = styled.img`
     max-width: 600px;
     max-height: 600px;
     object-position: right;
-    margin: auto;
+    margin: initial;
 `;
 
 export default ImageContainerStyled;

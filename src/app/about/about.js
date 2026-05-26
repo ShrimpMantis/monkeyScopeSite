@@ -78,36 +78,23 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                     <div className={styles.section}>
                         <div className={styles.contentContainer}>
                             <TextContainerComponent
-                                content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                                containing Lorem Ipsum passages `}
+                                content={`We believe the most profound truths are found in the unexpected. Our mission is to take universal human stories and flip the script, telling them through a quirky, unconventional, and fiercely original lens. We break away from standard formulas to deliver cinematic experiences that surprise the senses, challenge conventions, and linger in the mind long after the screen goes dark. By blending deep, relatable themes with an eccentric visual style, we make the familiar feel entirely brand new.`}
                                 isPrimary={true}
                             >
                              <h2>{"Mission"}</h2>
                              </TextContainerComponent>
 
                             <TextContainerComponent
-                                content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                                containing Lorem Ipsum passages `}
+                                content={`At the heart of Monkey Scope is a singular, unwavering mission: "to bring to life the stories we have lived in." We exist to carve out a creative sanctuary for the relentless, creating a space built by and for the ones who refuse to give up. The world is full of quiet, forgotten narratives that carry an unmistakable, powerful charm. These are the stories that slip through the cracks of mainstream media but hold the very soul of who we are. Our purpose is to unearth these hidden gems, giving voice to the resilient and breathing cinematic life into the spaces, struggles, and triumphs that shape our collective memory. We do not just capture images; we honor the survival, the beauty, and the stubborn grit of our people, transforming local truths into universal art.
+
+We tell stories. You decide what they mean. We make films. The rest is yours.`}
                                 isPrimary={true}
                             >
                                 <h2>{"Vision"}</h2>
                             </TextContainerComponent>
 
                             <TextContainerComponent
-                                content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                                containing Lorem Ipsum passages `}
+                                content={`Monkey Scope began simply because we needed a name for the work we were already completely immersed in. Looking back, we realized we were unknowingly doing the full, heavy lifting of a production house, just without calling ourselves one. Monkey Scope Motion Pictures was born out of that reality, created out of doing first and defining later.We built our foundation on the ground, creating momentum through pure action before ever stopping to write a title on a door. Today, that same raw, uncalculated energy pushes us forward. Monkey Scope is driven by a singular instinct: tell the story truthfully, and the rest will follow.`}
                                 isPrimary={true}
                             >
                                 <h2>{"History"}</h2>

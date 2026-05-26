@@ -3,18 +3,15 @@ import { NextResponse } from "next/server";
 export const GET = async (request) => {
 
     const detail = {
-        content:`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-                Duis aute irure dolor in reprehenderit 
-                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
+        content:`Rolling Stone India has listed Serpents of Pakhangba's music video Panthoibi as one of the 10 best Indian Music Videos of 2022. 
+        Panthoibi is a music video directed by Kulanandini Mahanta and produced by MonkeyScope films`,
         title:'News Detail',
-        url:'https://timesofindia.indiatimes.com/us',
+        url:'https://rollingstoneindia.com/the-10-best-indian-music-videos-of-2022/',
         imageInfo: {
-            src:'/kukili.png',
-            alt: 'kukili png'
+            src:'/panthoibiGirl.png',
+            alt: 'Serpents of Pakhangba, Panthoibi'
         },
-        link:'https://cnn.com'
+        link:'https://rollingstoneindia.com/the-10-best-indian-music-videos-of-2022/'
     };
 
     return NextResponse.json(detail);

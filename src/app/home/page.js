@@ -11,20 +11,6 @@ import styled from 'styled-components';
 import ContactUsComponent from '@/components/Contactus.component';
 import { media } from '@/utilities/breakpoints';
 
-const StyledAboutComponent = styled(TextContainer)`
-  p {
-    font-size: 25px;
-    line-height: 1.6;
-  }
-
-  ${media.tablet} {
-    p {
-      font-size: max(1rem, clamp(1rem, 3.5vw, 1.125rem));
-      line-height: 1.6;
-    }
-  }
-`;
-
 const HeroLogo = styled.img`
   width: 40%;
 
@@ -211,22 +197,26 @@ const Home = ({mediaItems, productions}) => {
           }}>
             <div className={styles.section}>
                 <HomeSection className={styles.contentContainer}>
-                 <StyledAboutComponent 
-                  // remove this later
+                 <TextContainer 
                     title={'About'}
-                    content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                    It has survived not only five centuries, but also the leap into electronic typesetting, 
-                    remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-                    containing Lorem Ipsum passages, `}
+                    content={`Monkey Scope is a premier, forward-thinking production house born from the vibrant cultural landscape of Assam, 
+                      Northeast India, built with a sharp, uncompromising global vision. 
+                      We don’t just create visuals; we capture the rhythm of a region that pulses with untapped stories, 
+                      cinematic landscapes, and raw artistic talent. We are deeply rooted in the soil of the Northeast, 
+                      serving as a powerful canvas and launchpad for the incredible creators, filmmakers, and technicians who call this region home.
+                      Our portfolio spans the entire spectrum of modern visual storytelling. 
+                      We cross genres, push aesthetic boundaries, and fluidly transition between intimate independent art and massive commercial scale. 
+                      Monkey Scope has become a trusted name for:
+Mainstream Commercials & Cinema: Designing and producing high-production-value music videos for major Bollywood artists and theatrical motion pictures.
+Independent & Corporate Labels: Collaborating with leading independent music labels to shape the visual identity of breakout artists.
+Cultural Preservation & Innovation: Partnering with iconic folk-rock bands to translate regional musical heritage into cutting-edge, contemporary visual narratives.`}
                     isPrimary={true}
                     showButton={true}
                     btnText={'More'}
                     hrefParamValue={'/about'}
                  >
                   <h2>{"About"}</h2>
-                  </StyledAboutComponent>
+                  </TextContainer>
                 </HomeSection>
              </div>
         </ParallaxLayer>
@@ -244,12 +234,13 @@ const Home = ({mediaItems, productions}) => {
           <div className={styles.section}>
               <HomeSection className={styles.contentContainer}>
                  <TextContainer 
-                  content={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-                  It has survived not only five centuries, but also the leap into electronic typesetting, 
-                  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-                  containing Lorem Ipsum passages, `}
+                  content={`
+Driven by a relentless pursuit of cinematic excellence, Monkey Scope has quickly earned critical acclaim both regionally and nationally. 
+Our foundational creative team leads by example: co-founder Kulanandini Mahanta was honored with the prestigious National Film Award for her 
+groundbreaking feature film *Emuthi Puthi*, while co-founder Poonam Gurung secured the Prag Cine Award for Best Actress, cementing our house's reputation for top-tier storytelling and performance. 
+This caliber of artistry extends seamlessly into our music production pipelines; notably, our music video *Panthoibi* caught international attention, 
+being featured in *Rolling Stone India* for its striking visual aesthetic and cultural resonance. At Monkey Scope, our accolades reflect our core mission: bringing powerful, 
+award-winning narratives from the heart of the Northeast to the global stage.`}
                   showButton={true}
                   btnText={'More Info'}
                   hrefParamValue={'/awards'}
