@@ -4,10 +4,14 @@ import { usePathname} from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import MenuComponent from "@/components/Menu.component";
 import FooterComponent from "@/components/FooterComponent";
+import { ParallaxPagesProvider, useParallaxPages } from "@/contexts/ParallaxPagesContext";
 
-const getPageCount = (pathValue, isMobile) => {
+const getPageCount = (pathValue, isMobile, pagesOverride) => {
+    if (pathValue === 'productions' && pagesOverride != null) {
+        return pagesOverride;
+    }
     if (pathValue === 'productions') {
-        return isMobile ? 3.2 : 2.5;
+        return isMobile ? 3.5 : 3;
     }
     if (pathValue === 'news') {
         return isMobile ? 2.9 : 2.15;
@@ -21,9 +25,10 @@ const getPageCount = (pathValue, isMobile) => {
     return isMobile ? 6.5 : 6;
 };
 
-const ParentWrapper = ({children, menuItems}) => {
+const ParentWrapperInner = ({children, menuItems}) => {
     const pathName = usePathname();
     const pathValue = pathName.trim().split('/')[1];
+    const { pagesOverride, clearPagesOverride } = useParallaxPages();
     const [hasMounted, setHasMounted] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
     const [pagesCount, setPageCount] = useState(6);
@@ -45,8 +50,16 @@ const ParentWrapper = ({children, menuItems}) => {
     }, []);
 
     useEffect(() => {
-        const currPagesCount = getPageCount(pathValue, isMobile);
-        setPageCount(currPagesCount);
+        if (pathValue !== 'productions') {
+            clearPagesOverride();
+        }
+    }, [pathValue, clearPagesOverride]);
+
+    useEffect(() => {
+        setPageCount(getPageCount(pathValue, isMobile, pagesOverride));
+    }, [pathValue, isMobile, pagesOverride]);
+
+    useEffect(() => {
         setCustomKey((prev) => prev + 1);
     }, [pathValue, isMobile]);
 
@@ -123,5 +136,11 @@ const ParentWrapper = ({children, menuItems}) => {
     );
      /* background: '#253237', background: '#253237' */
 };
+
+const ParentWrapper = (props) => (
+    <ParallaxPagesProvider>
+        <ParentWrapperInner {...props} />
+    </ParallaxPagesProvider>
+);
 
 export default ParentWrapper;

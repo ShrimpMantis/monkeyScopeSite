@@ -32,7 +32,7 @@ const Page = () => {
     };
     result();
  }, []);
-
+const imageUrl = newsDetail?.imageInfo.src;
     return (
         <>
             <ParallaxLayer 
@@ -40,7 +40,7 @@ const Page = () => {
                 factor={1} 
                 speed={1}
                 style={{
-                    backgroundImage: url('/kukili.png', true),
+                    backgroundImage: url(imageUrl, true),
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}

@@ -14,16 +14,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "MonkeyScope",
-  description: "MonkeyScope film production",
-  formatDetection: {
-    telephone: false,
-    email: false,
-    address: false,
+  title: "MonkeyScope Motion Pictures",
+  description: `MonkeyScope is a production house based in India with clientale all over the world. They specialize in creating 
+  a wide range of visual content for the entertainment industry.`,
+  icons: {
+    icon: "/favicon.ico",
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
+  manifest: "/manifest.json",
+  themeColor: "#253237",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    minimumScale: 1,
+    maximumScale: 5,
+    viewportFit: "cover",
   },
 };
 

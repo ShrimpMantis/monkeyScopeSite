@@ -3,14 +3,13 @@ import  '../app/globals.css';
 
 const mediaItems = [
     {
-        title: 'Media item 1',
-        content: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                  type specimen book... 
-                  `,
+        title: 'Rolling Stone India 10 best Indian Music Videos 2022',
+        content: `Rolling Stone India has listed Serpents of Pakhangba's music video Panthoibi as one of the 10 best Indian Music 
+        Videos of 2022. 
+        Panthoibi is a music video directed by Kulanandini Mahanta and produced by MonkeyScope films`,
         imageInfo: {
-            src: '/moreLove.png',
-            alt: 'media item 1'
+            src: '/panthoibiGirl.png',
+            alt: 'Serpents of Pakhangba, Panthoibi'
         },
     },
     {
@@ -62,27 +61,31 @@ const mediaItems = [
 const productionItems = [
     {
         src: '/moreLove.png',
-        alt: 'media item 1'
+        alt: 'More love'
     },
     {
         src: '/hero.png',
-        alt: 'media item 1'
+        alt: 'Monot pore'
     },
     {
         src: '/bhagoruwa.png',
-        alt: 'media item 1'
+        alt: 'Bottle Rockets Bhagoruwa'
+    },
+    {
+        src: '/panthoibi.png',
+        alt: 'Beats of Merapani Paanthoibi'
     },
     {
         src: '/kinaare.png',
-        alt: 'media item 1'
+        alt: 'Suzon Kinaare'
     },
     {
-        src: '/moreLove.png',
-        alt: 'media item 1'
+        src: '/suzonDilQaabu.png',
+        alt: 'Dil Qaabu'
     },
     {
-        src: '/moreLove.png',
-        alt: 'media item 1'
+        src: '/deuka.png',
+        alt: 'Deuka, Emuthi Puthi OST'
     },
 ];
 
