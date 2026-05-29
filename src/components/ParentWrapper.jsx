@@ -5,33 +5,41 @@ import { useState, useEffect, useRef } from "react";
 import MenuComponent from "@/components/Menu.component";
 import FooterComponent from "@/components/FooterComponent";
 import { ParallaxPagesProvider, useParallaxPages } from "@/contexts/ParallaxPagesContext";
+import { useViewport } from "@/utilities/viewport";
 
-const getPageCount = (pathValue, isMobile, pagesOverride) => {
-    if (pathValue === 'productions' && pagesOverride != null) {
+const getPageCount = (pathValue, isNarrow, isCompact, pagesOverride) => {
+    if ((pathValue === 'productions' || pathValue === 'about') && pagesOverride != null) {
         return pagesOverride;
     }
     if (pathValue === 'productions') {
-        return isMobile ? 3.5 : 3;
+        if (isCompact) return 3.2;
+        return isNarrow ? 3.5 : 3;
     }
     if (pathValue === 'news') {
-        return isMobile ? 2.9 : 2.15;
+        if (isCompact) return 2.4;
+        return isNarrow ? 2.9 : 2.15;
     }
     if (pathValue === 'about') {
-        return isMobile ? 6.5 : 6;
+        if (isCompact) return 5.5;
+        return isNarrow ? 6.5 : 6;
     }
     if (!pathValue || pathValue === 'home') {
-        return isMobile ? 7.5 : 7;
+        if (isCompact) return 6.5;
+        return isNarrow ? 7.5 : 7;
     }
-    return isMobile ? 6.5 : 6;
+    if (isCompact) return 5.5;
+    return isNarrow ? 6.5 : 6;
 };
 
 const ParentWrapperInner = ({children, menuItems}) => {
     const pathName = usePathname();
     const pathValue = pathName.trim().split('/')[1];
     const { pagesOverride, clearPagesOverride } = useParallaxPages();
+    const { isNarrow, isCompact } = useViewport();
     const [hasMounted, setHasMounted] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [pagesCount, setPageCount] = useState(6);
+    const [pagesCount, setPageCount] = useState(() =>
+        getPageCount(pathValue, isNarrow, isCompact, pagesOverride),
+    );
     const [shouldChangeFontColor, setFontColor] = useState(false);
     const [shouldShowFooter, setShouldShowFooter]= useState(false);
     const [customKey, setCustomKey] = useState(0);
@@ -42,26 +50,18 @@ const ParentWrapperInner = ({children, menuItems}) => {
     }, []);
 
     useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 768px)');
-        const updateViewport = () => setIsMobile(mediaQuery.matches);
-        updateViewport();
-        mediaQuery.addEventListener('change', updateViewport);
-        return () => mediaQuery.removeEventListener('change', updateViewport);
-    }, []);
-
-    useEffect(() => {
-        if (pathValue !== 'productions') {
+        if (pathValue !== 'productions' && pathValue !== 'about') {
             clearPagesOverride();
         }
     }, [pathValue, clearPagesOverride]);
 
     useEffect(() => {
-        setPageCount(getPageCount(pathValue, isMobile, pagesOverride));
-    }, [pathValue, isMobile, pagesOverride]);
+        setPageCount(getPageCount(pathValue, isNarrow, isCompact, pagesOverride));
+    }, [pathValue, isNarrow, isCompact, pagesOverride]);
 
     useEffect(() => {
         setCustomKey((prev) => prev + 1);
-    }, [pathValue, isMobile]);
+    }, [pathValue, isNarrow, isCompact]);
 
     useEffect(() => {
         if (!hasMounted) return;
@@ -97,8 +97,11 @@ const ParentWrapperInner = ({children, menuItems}) => {
                     setFontColor(false);
                 }
 
-                const maxScroll = Math.max(0, parallax.space * pagesCount - container.clientHeight);
-                const bottomThreshold = isMobile ? 80 : 8;
+                const maxScroll = Math.max(
+                    0,
+                    container.scrollHeight - container.clientHeight,
+                );
+                const bottomThreshold = isCompact ? 48 : isNarrow ? 80 : 24;
                 const isAtBottom = container.scrollTop >= maxScroll - bottomThreshold;
                 setShouldShowFooter(isAtBottom);
             };
@@ -114,7 +117,7 @@ const ParentWrapperInner = ({children, menuItems}) => {
             if (retryTimer) clearTimeout(retryTimer);
             detachListener();
         };
-    }, [hasMounted, customKey, pagesCount, isMobile]);
+    }, [hasMounted, customKey, pagesCount, isNarrow, isCompact]);
 
     if (!hasMounted) {
         return <div style={{ minHeight: '100vh' }} />; 

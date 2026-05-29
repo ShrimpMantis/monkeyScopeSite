@@ -1,7 +1,7 @@
 'use client'
 import React, { memo } from 'react';
 import TextContainer from '@/components/TextContainer.component';
-import { ParallaxLayer } from '@react-spring/parallax';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 import VerticalScroller from '@/components/VerticalScroller.component';
 import HorizontalCarousel from '@/components/HorizontalCarousel.component';
 import { url } from '@/utilities/helper';
@@ -9,7 +9,18 @@ import styles from '@/utilities/page.module.css';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import ContactUsComponent from '@/components/Contactus.component';
-import { media } from '@/utilities/breakpoints';
+import { media, breakpoints } from '@/utilities/breakpoints';
+import { useViewport } from '@/utilities/viewport';
+import { InformationButton } from '@/components/styledComponents/InformationButton.styled';
+
+const laptopMinWidth = parseInt(breakpoints.laptop, 10);
+
+const getHomeParallaxLayout = (width) => {
+  if (width >= laptopMinWidth) {
+    return { footerFactor: 0.32 };
+  }
+  return { footerFactor: 0.7 };
+};
 
 const HeroLogo = styled.img`
   width: 40%;
@@ -17,15 +28,28 @@ const HeroLogo = styled.img`
   ${media.tablet} {
     width: min(70vw, 280px);
   }
+
+  ${media.compactLandscape} {
+    width: min(45vw, 220px);
+  }
+
+  ${media.tabletLandscape} {
+    width: min(50vw, 260px);
+  }
 `;
 
 const HomeSection = styled.div`
   ${media.tablet} {
     padding-top: 2%;
   }
+
+  ${media.compactLandscape} {
+    padding-top: 1%;
+  }
 `;
 
 const ProductionsSection = styled.div`
+  min-height:4000px;
   ${media.tablet} {
     height: auto;
     min-height: 100%;
@@ -47,6 +71,15 @@ const ProductionsContentContainer = styled(HomeSection)`
     padding: 5% 4%;
     opacity: 85%;
   }
+
+  ${media.compactLandscape} {
+    padding: 3% 4%;
+    min-height: auto;
+  }
+
+  ${media.tabletLandscape} {
+    padding: 4%;
+  }
 `;
 
 const ProductionsCarouselWrap = styled.div`
@@ -63,17 +96,30 @@ const ContactSection = styled.div`
   ${media.tablet} {
     padding-bottom: clamp(140px, 20vh, 200px);
   }
+
+  ${media.compactLandscape} {
+    padding-bottom: clamp(64px, 12vh, 100px);
+  }
+
+  ${media.tabletLandscape} {
+    padding-bottom: clamp(80px, 14vh, 120px);
+  }
+
+  ${media.laptopUp} {
+    padding-bottom: clamp(40px, 5vh, 64px);
+  }
 `;
 
 const Home = ({mediaItems, productions}) => {
   const router = useRouter();
+  const { width } = useViewport();
+  const layout = getHomeParallaxLayout(width);
 
   const productionsFactor = 1;
   const newsOffset = 3;
   const awardsOffset = 4;
   const contactOffset = 5;
-  const footerOffset = 6.2;
-  const footerFactor = 0.7;
+  const footerOffset = 6;
 
   const handleItemClicked = (itemId) => {
     router.push(`/news/${itemId}`);
@@ -134,13 +180,14 @@ const Home = ({mediaItems, productions}) => {
           style={{
              backgroundImage: url('/kukili3.png', true),
              backgroundSize: 'cover',
-             backgroundPosition: 'center'
+             backgroundPosition: 'center',
+            
           }}>
              <ProductionsSection className={styles.section}>
                 <ProductionsContentContainer>
                    <h2>Productions</h2>
                    <ProductionsCarouselWrap>
-                      <HorizontalCarousel items={productions} />
+                      <HorizontalCarousel items={productions} variant="productions" />
                    </ProductionsCarouselWrap>
                 </ProductionsContentContainer>
               </ProductionsSection>
@@ -169,6 +216,11 @@ const Home = ({mediaItems, productions}) => {
                         hrefParamValue={'/news'}
                       >
                          <h2>{"Latest News"}</h2>
+                         <p>
+                          <InformationButton hrefParam={'/news'}>
+                            More News
+                          </InformationButton>
+                         </p>
                       </TextContainer>
                        
                     </VerticalScroller>
@@ -202,8 +254,7 @@ const Home = ({mediaItems, productions}) => {
                     content={`Monkey Scope is a premier, forward-thinking production house born from the vibrant cultural landscape of Assam, 
                       Northeast India, built with a sharp, uncompromising global vision. 
                       We don’t just create visuals; we capture the rhythm of a region that pulses with untapped stories, 
-                      cinematic landscapes, and raw artistic talent. We are deeply rooted in the soil of the Northeast, 
-                      serving as a powerful canvas and launchpad for the incredible creators, filmmakers, and technicians who call this region home.
+                      cinematic landscapes, and raw artistic talent.
                       Our portfolio spans the entire spectrum of modern visual storytelling. 
                       We cross genres, push aesthetic boundaries, and fluidly transition between intimate independent art and massive commercial scale. 
                       Monkey Scope has become a trusted name for:
@@ -223,7 +274,7 @@ Cultural Preservation & Innovation: Partnering with iconic folk-rock bands to tr
 
         <ParallaxLayer
           offset={awardsOffset}
-          speed={-0}
+          speed={0}
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -244,6 +295,7 @@ award-winning narratives from the heart of the Northeast to the global stage.`}
                   showButton={true}
                   btnText={'More Info'}
                   hrefParamValue={'/awards'}
+                  className={styles.textContainer}
                  >
                   <h2>{"Awards"}</h2>
                 </TextContainer>
@@ -253,8 +305,8 @@ award-winning narratives from the heart of the Northeast to the global stage.`}
         </ParallaxLayer>
         <ParallaxLayer
           offset={contactOffset}
-          speed={-0}
-          factor={1.15}
+          speed={0}
+          factor={1}
           style={{
             display: 'flex',
             alignItems: 'flex-start',
@@ -267,7 +319,7 @@ award-winning narratives from the heart of the Northeast to the global stage.`}
              <ContactSection className={styles.section}>
               <HomeSection className={styles.contentContainer}>
                   <ContactUsComponent handleSubmitCb={submitHandler}>
-                    <h2>{"Contact Us"}</h2>
+                    <h2>{"Contact us"}</h2>
                   </ContactUsComponent>
               </HomeSection>
             </ContactSection>
@@ -276,7 +328,7 @@ award-winning narratives from the heart of the Northeast to the global stage.`}
         <ParallaxLayer
           offset={footerOffset}
           speed={0}
-          factor={footerFactor}
+          factor={layout.footerFactor}
           style={{ backgroundColor: 'transparent' }}
         />
         

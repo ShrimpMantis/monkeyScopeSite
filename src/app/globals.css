@@ -6,13 +6,6 @@
   --tap-target-min: 44px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 /* Global box model reset */
 *,
 *::before,
@@ -24,6 +17,8 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Keep light UI when the OS uses dark mode (e.g. scheduled night appearance). */
+  color-scheme: light;
 }
 
 html,
@@ -165,8 +160,9 @@ address {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+@media (orientation: landscape) and (max-height: 520px) {
+  h2 {
+    padding-block: var(--space-2xs);
   }
 }
+

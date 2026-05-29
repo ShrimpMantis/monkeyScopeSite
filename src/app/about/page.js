@@ -38,7 +38,7 @@ const history = {
 const specializations = [
     {
         imageInfo: {
-            src:'/moreLove.png',
+            src:'/snehdeepPyarKiTalash.png',
             alt:'placeholder'
         },
         content:`At Monkey Scope, music videos are more than just moving images; they are expansive canvases where raw human emotions come to life. 
@@ -51,9 +51,9 @@ who infuses every production with years of high-level performance experience in 
         title:'Music Video',
         link: '/productions'
     },
-   /*  {
+    {
         imageInfo: {
-            src:'/moreLove.png',
+            src:'/oziva.png',
             alt:'placeholder'
         },
         content:`It is a long established fact that a reader will be distracted by 
@@ -64,9 +64,9 @@ who infuses every production with years of high-level performance experience in 
         text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. 
         Various versions have evolved over the years, 
         sometimes by accident, sometimes on purpose (injected humour and the like)`,
-        title:'Educational Films',
+        title:'Commercials / Ad Films',
         link: '/productions'
-    }, */
+    },
     {
         imageInfo: {
             src:'/moreLove.png',
@@ -83,7 +83,7 @@ who infuses every production with years of high-level performance experience in 
         title:'Short Films',
         link: '/productions'
     },
-    {
+   /*  {
         imageInfo: {
             src:'/moreLove.png',
             alt:'placeholder'
@@ -98,10 +98,10 @@ who infuses every production with years of high-level performance experience in 
         sometimes by accident, sometimes on purpose (injected humour and the like`,
         title:'Documentaries',
         link: '/productions'
-    },
+    }, */
     {
         imageInfo: {
-            src:'/moreLove.png',
+            src:'/panthoibi.png',
             alt:'placeholder'
         },
         content:`It is a long established fact that a reader will be distracted by 

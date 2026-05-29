@@ -1,12 +1,15 @@
 /**
  * Viewport tiers:
- * - mobile:           <= 480px
+ * - mobile:           shortest edge <= 480px
  * - tabletPortrait:   481px–768px, portrait
- * - tabletLandscape:  481px–1024px, landscape (also tablets held horizontally)
- * - tablet:           <= 768px (legacy helper)
+ * - tabletLandscape:  481px–1024px, landscape
+ * - compactLandscape: landscape with height <= 520px (phones held sideways)
+ * - tablet:           max-width 768px (legacy)
  * - laptop:           1025px–1280px
  * - desktop:          1281px–1920px
  * - ultraWide:        >= 1921px
+ *
+ * JS layout profiles: use `useViewport()` from viewport.js (orientation-aware).
  */
 export const breakpoints = {
   mobile: '480px',
@@ -26,8 +29,14 @@ export const media = {
   desktop: `@media (min-width: ${breakpoints.laptop})`,
 
   mobileOnly: `@media (max-width: ${breakpoints.mobile})`,
+  /** Phone/tablet held sideways — limited vertical space */
+  compactLandscape: `@media (orientation: landscape) and (max-height: 520px)`,
+  /** Phone landscape (broader width, short height) */
+  mobileLandscape: `@media (orientation: landscape) and (max-height: 520px) and (max-width: ${breakpoints.laptop})`,
   tabletPortrait: `@media (min-width: 481px) and (max-width: ${breakpoints.tablet}) and (orientation: portrait)`,
   tabletLandscape: `@media (min-width: 481px) and (max-width: ${breakpoints.laptop}) and (orientation: landscape)`,
+  /** Portrait phones and tablets — stacked layouts */
+  narrowPortrait: `@media (orientation: portrait) and (max-width: ${breakpoints.tablet})`,
   tabletOnly: `@media (min-width: 481px) and (max-width: ${breakpoints.tablet})`,
   laptop: `@media (min-width: ${breakpoints.laptop}) and (max-width: ${breakpoints.desktop})`,
   desktopScreen: `@media (min-width: ${breakpoints.desktop}) and (max-width: ${breakpoints.ultraWide})`,

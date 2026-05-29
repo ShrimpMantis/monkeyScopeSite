@@ -10,48 +10,70 @@ const StyledTextStickyContainer = styled(TextContainer)`
  width: 30%;
  flex-shrink: 0;
  z-index: 2;
+ pointer-events: auto;
  h2 {
     text-decoration-line: none;
  }
 
- ${media.tablet} {
+ ${media.narrowPortrait} {
     display: none;
+ }
+
+ ${media.compactLandscape}, ${media.tabletLandscape} {
+    display: block;
+    width: 28%;
+    min-width: 160px;
  }
 `;
 
 const MobileTitleHeader = styled.div`
   display: none;
 
-  ${media.tablet} {
+  ${media.narrowPortrait} {
     display: block;
     width: 100%;
     padding: 0 4% 20px;
     text-align: center;
     box-sizing: border-box;
-
+   
     h2 {
       text-decoration-line: none;
     }
+  }
+
+  ${media.compactLandscape}, ${media.tabletLandscape} {
+    display: none;
   }
 `;
 
 const StyledMediaContainer = styled(ImageTextContainer)`
   width: 61%;
-  margin-left: auto;
   flex-shrink: 0;
 
-  ${media.tablet} {
+  ${media.narrowPortrait} {
     width: 100%;
     max-width: 100%;
     margin-left: 0;
+    margin-left: auto;
+  }
+
+  ${media.compactLandscape}, ${media.tabletLandscape} {
+    width: 68%;
+    margin-left: auto;
+    max-width: none;
   }
 `;
 
 const StyledScrollerWrapper = styled.div`
-  ${media.tablet} {
+  ${media.narrowPortrait} {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
+  }
+
+  ${media.compactLandscape}, ${media.tabletLandscape} {
+    min-height: auto;
+    display: block;
   }
 `;
 
@@ -61,13 +83,29 @@ const StyledParallaxContent = styled.div`
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
-    height: 700px;
+    height: 900px;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         padding: 4% 5%;
         justify-content: stretch;
+        height: min(85vh, 640px);
+    }
+
+    ${media.compactLandscape} {
+        padding: 3% 4%;
+        height: min(88vh, 480px);
+        justify-content: flex-end;
+    }
+
+    ${media.tabletLandscape} {
+        padding: 4% 5%;
+        height: min(90vh, 560px);
+        justify-content: flex-end;
     }
 `;
+
+/** Half-page steps keep panels tight; speed must stay 0 (see @react-spring/parallax Math.floor(offset)). */
+const PANEL_SPACE_FACTOR = 0.5;
 
 const VerticalScroller = ({items, itemClickedHandler, children}) => {
     const numberOfPages = items.length;
@@ -76,7 +114,8 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
         return {
             ...alignCenter,
             pointerEvents: 'none',
-            justifyContent: justifyContentPosition
+            justifyContent: justifyContentPosition,
+            
         };
     }, []);
     const fetchParallaxLayerStyle = useCallback((justifyContentPosition) => {
@@ -99,8 +138,8 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
     const PagesList = ({pagesList, itemClickCallBack}) => {
         return pagesList.map((page, ind) => {
             return(
-                    <ParallaxLayer key={ind} offset={ind} speed={1.5} factor={0.99} 
-                        style={fetchParallaxLayerStyle('flex-end')}
+                     <ParallaxLayer key={ind} offset={ind * PANEL_SPACE_FACTOR} speed={0} factor={1} 
+                        style={fetchParallaxLayerStyle('flex-start')}
                         onClick={() => itemClickCallBack(ind)}
                         >
                         <StyledParallaxContent>
@@ -111,6 +150,7 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
                                 isPrimary={false}
                                 hasPicture={true}
                                 imageInfo={page.imageInfo}
+                                className={styles.mediaContainer}
                             />
                         </StyledParallaxContent>
                     </ParallaxLayer>
@@ -118,11 +158,14 @@ const VerticalScroller = ({items, itemClickedHandler, children}) => {
         });
     };
 
+    const totalPages = ((numberOfPages - 1) * PANEL_SPACE_FACTOR) + 1;
     return (
         <StyledScrollerWrapper>
             <MobileTitleHeader>{children}</MobileTitleHeader>
-            <Parallax pages={numberOfPages} style={fetchParallaxStyle()} >
-                <ParallaxLayer sticky={{start: 0, end: numberOfPages}} style={fetchStickyLayerStyle('flex-start')}>
+            <Parallax pages={totalPages} style={fetchParallaxStyle()}
+             className={styles.parallaxContainer}
+            >
+                <ParallaxLayer sticky={{start: 0, end: totalPages}} style={fetchStickyLayerStyle('flex-start')}>
                     <StyledTextStickyContainer
                         isPrimary={false}
                         hasPicture={false}

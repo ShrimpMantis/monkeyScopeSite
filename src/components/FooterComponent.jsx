@@ -24,6 +24,12 @@ const StyledWrapper = styled.div`
         min-height: ${props => props.$shouldShow ? '120px' : '0'};
         padding: ${props => props.$shouldShow ? '2% 0' : '0'};
     }
+
+    ${media.compactLandscape} {
+        min-height: ${props => props.$shouldShow ? '88px' : '0'};
+        padding: ${props => props.$shouldShow ? '1% 0' : '0'};
+        gap: 6px;
+    }
 `;
 
 const StyledFooterUnits = styled.div`
@@ -62,6 +68,10 @@ const StyledImageLogo = styled.img`
     ${media.tablet} {
         width: ${props => props.$shouldShow ? 'min(40vw, 160px)' : '0'};
     }
+
+    ${media.compactLandscape} {
+        width: ${props => props.$shouldShow ? 'min(28vw, 120px)' : '0'};
+    }
 `;
 
 const ImageWrapper = styled.div`
@@ -75,18 +85,18 @@ const FooterComponent = ({shouldRender}) => {
     return(
         <StyledWrapper $shouldShow={shouldRender}>
             <StyledIconsWrapper>
-                <StyledFooterUnits $shouldShow={shouldRender}>
+           {/*      <StyledFooterUnits $shouldShow={shouldRender} onClick={() => window.open('https://www.facebook.com/monkeyscopeproductions', '_blank')} aria-label="Facebook">
                         <Facebook/>
-                </StyledFooterUnits>
-                <StyledFooterUnits $shouldShow={shouldRender}>
+                </StyledFooterUnits> */}
+                <StyledFooterUnits $shouldShow={shouldRender} onClick={() => window.open('https://www.instagram.com/_monkeyscope_/', '_blank')} aria-label="Instagram">
                         <Instagram/>
                 </StyledFooterUnits>
-                <StyledFooterUnits $shouldShow={shouldRender}>
+           {/*      <StyledFooterUnits $shouldShow={shouldRender} onClick={() => window.open('https://www.twitter.com/monkeyscopeproductions', '_blank')} aria-label="Twitter">
                         <Twitter/>
-                </StyledFooterUnits>
-                <StyledFooterUnits $shouldShow={shouldRender}>
+                </StyledFooterUnits> */}
+         {/*        <StyledFooterUnits $shouldShow={shouldRender} onClick={() => window.open('https://www.youtube.com/monkeyscopeproductions', '_blank')} aria-label="Youtube">
                         <Youtube/>
-                </StyledFooterUnits>
+                </StyledFooterUnits> */}
             </StyledIconsWrapper>
             <ImageWrapper $shouldShow={shouldRender}>
                 <StyledImageLogo $shouldShow= {shouldRender} src="/whiteLogoText.webp" alt="monkeyScopeText"/>

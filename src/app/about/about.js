@@ -1,26 +1,21 @@
 'use client'
 import { ParallaxLayer } from '@react-spring/parallax';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { url } from '@/utilities/helper';
 import TextContainerComponent from '@/components/TextContainer.component';
 import styles from '@/utilities/page.module.css';
 import GridComponent from '@/components/Grid.component';
 import StaggeredContainer from '@/components/StaggeredContainer.component';
 import { useRouter } from 'next/navigation';
+import { useViewport } from '@/utilities/viewport';
 
 const About = ({teamInfo, mission, vision, history, specializations}) => {
     const router = useRouter();
-    const [isMobile, setIsMobile] = useState(false);
+    const { isNarrow, isCompact } = useViewport();
+    const useCompactHero = isNarrow || isCompact;
 
-    useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 768px)');
-        const updateViewport = () => setIsMobile(mediaQuery.matches);
-        updateViewport();
-        mediaQuery.addEventListener('change', updateViewport);
-        return () => mediaQuery.removeEventListener('change', updateViewport);
-    }, []);
-
-    const heroFactor = isMobile ? 1 : 3;
+    const heroFactor = useCompactHero ? 1 : 3;
+    const teamTileGap = isCompact ? '20px' : isNarrow ? '100px' : undefined;
 
     const handleClickCb = () => {
         router.push('/productions');
@@ -33,11 +28,12 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 <ParallaxLayer offset={0} speed={0} factor={heroFactor}
                     style={{
                     backgroundImage: url('/bhagoruwa.png', true),
-                    backgroundSize: isMobile ? 'cover' : 'contain',
-                    ...(isMobile ? { backgroundPosition: 'center' } : {}),
+                    backgroundSize: useCompactHero ? 'cover' : 'contain',
+                    ...(useCompactHero ? { backgroundPosition: 'center' } : {}),
                 }}>
                 
                 </ParallaxLayer>
+
                 <ParallaxLayer offset={1} speed={1} style={{ backgroundColor: '#FAF7EF' }} />
                 <ParallaxLayer offset={2} speed={1} style={{ backgroundColor: '#FAF7EF' }} />
                 {/* 805E73 */}
@@ -62,17 +58,6 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '10%' }} />
                 <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '75%' }} />
                 </ParallaxLayer>
-
-          {/*       <ParallaxLayer offset={1.6} speed={-0.1} style={{ opacity: 0.4 }}>
-                <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '60%' }} />
-                <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '25%', marginLeft: '30%' }} />
-                <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '80%' }} />
-                </ParallaxLayer> */}
-
-                {/* <ParallaxLayer offset={2.6} speed={0.4} style={{ opacity: 0.6 }}>
-                <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '5%' }} />
-                <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '15%', marginLeft: '75%' }} />
-                </ParallaxLayer> */}
 
                 <ParallaxLayer offset={1} speed={1.5} factor={3}>
                     <div className={styles.section}>
@@ -102,13 +87,13 @@ We tell stories. You decide what they mean. We make films. The rest is yours.`}
                         </div>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={2} speed={0} factor={0.99}>
+                <ParallaxLayer offset={2} speed={0} factor={0.45}>
                     <div className={styles.section}>
                         <div className={styles.contentContainer}>
                             <GridComponent
                                 childrenList={teamInfo.teamList}
                                 clickCb={handleClickOnTeam}
-                                mobileTileGap="100px"
+                                mobileTileGap={teamTileGap}
                             >
                                 <h2>{teamInfo.title}</h2>
                             </GridComponent>
@@ -116,7 +101,7 @@ We tell stories. You decide what they mean. We make films. The rest is yours.`}
                     </div>
                 </ParallaxLayer>
 
-                <ParallaxLayer offset={3} speed={1.5} factor={0.99}>
+                <ParallaxLayer offset={2.97} speed={1} factor={0.25}>
                     <div className={styles.section}>
                         <div className={styles.contentContainer}>
                             <StaggeredContainer sections={specializations} 
@@ -127,7 +112,7 @@ We tell stories. You decide what they mean. We make films. The rest is yours.`}
                     </div>
                 </ParallaxLayer>
                 <ParallaxLayer
-                    offset={5}
+                    offset={4.5}
                     speed={-0}
                     style={{
                         display: 'flex',

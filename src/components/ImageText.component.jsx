@@ -20,31 +20,45 @@ const ImageTextContainerStyled = styled(ImageTextContainer)`
     overflow: hidden;
     h3 {
         text-align: left;
-        padding-left: 9%;
-        padding-right: 9%;
         box-sizing: border-box;
     }
     p {
         text-align: left;
         font-size: max(1rem, 16px);
         line-height: 1.6;
-        padding-left: 9%;
-        padding-right: 9%;
-        padding-top: 1%;
+        margin-inline: initial;
     }
 
     img {
-        max-height: 320px;
+        max-height: 420px;
         object-fit: cover;
     }
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         img {
             max-height: 220px;
+            padding-left: 9%;
+            padding-right: 9%;
         }
 
         h3, p {
             padding: 0 2%;
+        }
+    }
+
+    ${media.compactLandscape} {
+        img {
+            max-height: min(36vh, 180px);
+        }
+
+        h3, p {
+            padding: 0 3%;
+        }
+    }
+
+    ${media.tabletLandscape} {
+        img {
+            max-height: min(42vh, 240px);
         }
     }
 `;

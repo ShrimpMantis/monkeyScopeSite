@@ -10,9 +10,19 @@ const StyledDivWrapper = styled.div`
     padding:5%;
     height:100%;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         padding: 3%;
         gap: 24px;
+    }
+
+    ${media.compactLandscape} {
+        padding: 2% 3%;
+        gap: 16px;
+    }
+
+    ${media.tabletLandscape} {
+        padding: 3% 4%;
+        gap: 20px;
     }
 `;
 
