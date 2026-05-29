@@ -14,22 +14,40 @@ const StyledParent = styled.div`
     flex-direction: ${props=> props.$isFlip ? 'row-reverse' : 'row'};
     text-align: left;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         flex-direction: column;
         padding: 4%;
         gap: 16px;
     }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        flex-direction: ${props => props.$isFlip ? 'row-reverse' : 'row'};
+        padding: 3% 4%;
+        gap: 12px;
+        align-items: flex-start;
+    }
 `;
 
 const StyledImageContainer = styled.div`
-    width:40%;
+    width:50%;
     flex-basis: 1 1 400px;
     overflow: hidden;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         width: 100%;
         flex-basis: auto;
         max-height: 260px;
+    }
+
+    ${media.compactLandscape} {
+        width: 38%;
+        flex-basis: auto;
+        max-height: min(42vh, 220px);
+    }
+
+    ${media.tabletLandscape} {
+        width: 40%;
+        max-height: min(48vh, 280px);
     }
 `;
 
@@ -37,9 +55,15 @@ const StyleTextCompContainer = styled.div`
     width: 50%;
     flex-basis: 1 1 600px;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         width: 100%;
         flex-basis: auto;
+    }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        width: 55%;
+        flex: 1;
+        min-width: 0;
     }
 `;
 

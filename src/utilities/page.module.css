@@ -54,6 +54,17 @@
 }
 
 .stickyContainer {
+
+}
+
+.textContainer{
+  margin-top:4%;
+}
+
+.mediaContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 @media (max-width: 768px) {
@@ -76,6 +87,31 @@
   .section p {
     padding-block: var(--space-xs);
     font-size: max(1rem, var(--font-size-body-min));
+  }
+
+  .parallaxContainer{
+    left:0%;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  .mainContainer {
+    padding-top: clamp(3rem, 12vh, 4.25rem);
+    gap: var(--space-xs);
+  }
+
+  .contentContainer {
+    padding: var(--space-sm) var(--page-gutter);
+  }
+
+  .section p {
+    padding-block: var(--space-2xs);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+  .contentContainer {
+    max-width: min(var(--content-max-width), 100%);
   }
 }
 

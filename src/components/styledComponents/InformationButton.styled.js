@@ -29,10 +29,15 @@ const InformationButtonStyled = styled.span`
         transition: background-color 0.2s ease-in;
     }
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         width: min(200px, 80vw);
         margin: 10px auto;
         display: flex;
+    }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        width: min(200px, 40vw);
+        margin: 8px auto;
     }
 `;
 

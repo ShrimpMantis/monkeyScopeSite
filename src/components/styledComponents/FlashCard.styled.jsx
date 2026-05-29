@@ -10,8 +10,16 @@ const StyledImageWrapper = styled.div`
     height: 400px;
     overflow:hidden;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         height: 220px;
+    }
+
+    ${media.compactLandscape} {
+        height: min(160px, 32vh);
+    }
+
+    ${media.tabletLandscape} {
+        height: min(200px, 36vh);
     }
 
     ${media.mobile} {

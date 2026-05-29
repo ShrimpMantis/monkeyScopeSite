@@ -28,7 +28,7 @@ const fieldStyles = `
 
 const ContactUsContainer = styled.div`
     background-color: black;
-    opacity: 0.9;
+    opacity: 0.99;
     color: white;
     width: 100%;
     max-width: 100%;
@@ -51,6 +51,13 @@ const StyledDivContainer = styled.div`
     box-sizing: border-box;
 
     ${media.mobileOnly} {
+        gap: var(--space-md);
+        padding: var(--space-sm) var(--page-gutter);
+    }
+
+    ${media.compactLandscape} {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        align-items: start;
         gap: var(--space-md);
         padding: var(--space-sm) var(--page-gutter);
     }
@@ -114,6 +121,10 @@ const StyledTextArea = styled.textarea`
         min-height: clamp(100px, 18vh, 160px);
     }
 
+    ${media.compactLandscape} {
+        min-height: clamp(72px, 14vh, 120px);
+    }
+
     ${media.ultraWide} {
         min-height: clamp(140px, 16vh, 260px);
     }
@@ -152,6 +163,12 @@ const StyledAddressContainer = styled.div`
         padding: var(--space-sm) 0;
         text-align: center;
         align-items: center;
+    }
+
+    ${media.compactLandscape} {
+        text-align: left;
+        align-items: flex-start;
+        padding: var(--space-xs) 0 0;
     }
 
     ${media.tabletPortrait} {

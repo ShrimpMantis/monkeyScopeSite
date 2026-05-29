@@ -40,6 +40,25 @@
   }
 }
 
+/* Phone landscape — short viewport height */
+@media (orientation: landscape) and (max-height: 520px) {
+  :root {
+    --page-gutter: clamp(0.75rem, 2.5vw, 1.25rem);
+    --section-gap: clamp(0.625rem, 2vw, 1rem);
+    --space-md: clamp(0.625rem, 1.5vw, 0.875rem);
+    --space-lg: clamp(0.75rem, 2vw, 1.125rem);
+    --font-size-h2: clamp(1.2rem, 2.5vw + 0.5rem, 1.65rem);
+    --paragraph-spacing: clamp(0.5rem, 1.2vw, 0.75rem);
+  }
+}
+
+/* Mobile portrait only */
+@media (orientation: portrait) and (max-width: 480px) {
+  :root {
+    --page-gutter: clamp(1rem, 4vw, 1.25rem);
+  }
+}
+
 /* Tablet portrait */
 @media (min-width: 481px) and (max-width: 768px) and (orientation: portrait) {
   :root {
@@ -51,8 +70,10 @@
 /* Tablet landscape */
 @media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
   :root {
-    --page-gutter: clamp(1.5rem, 3vw, 2.5rem);
+    --page-gutter: clamp(1.25rem, 2.5vw, 2rem);
     --content-max-width: min(56rem, 100% - (var(--page-gutter) * 2));
+    --grid-max-width: min(64rem, 100% - (var(--page-gutter) * 2));
+    --section-gap: clamp(0.75rem, 2vw, 1.25rem);
   }
 }
 

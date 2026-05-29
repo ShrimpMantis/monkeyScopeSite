@@ -4,9 +4,9 @@ import GridComponent from "@/components/Grid.component";
 import { ParallaxLayer } from "@react-spring/parallax";
 import { url } from "@/utilities/helper";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { media } from "@/utilities/breakpoints";
+import { useViewport } from "@/utilities/viewport";
 
 const StyledNewsSection = styled.div`
     display: flex;
@@ -26,9 +26,19 @@ const StyledNewsSection = styled.div`
         margin-bottom: clamp(20px, 4vw, 40px);
     }
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         padding-top: 10%;
         padding-bottom: 72px;
+    }
+
+    ${media.compactLandscape} {
+        padding-top: clamp(2.5rem, 8vh, 3.5rem);
+        padding-bottom: 48px;
+    }
+
+    ${media.tabletLandscape} {
+        padding-top: 6%;
+        padding-bottom: 56px;
     }
 `;
 
@@ -41,22 +51,27 @@ const StyledContentContainer = styled.div`
     box-sizing: border-box;
     text-align: center;
 
-    ${media.tablet} {
+    ${media.narrowPortrait}, ${media.compactLandscape} {
         padding: 4%;
     }
 `;
 
+const getNewsParallaxLayout = (layoutProfile) => {
+    if (layoutProfile === 'mobileLandscape') {
+        return { contentFactor: 1.35, footerOffset: 2.05, footerFactor: 0.32 };
+    }
+    if (layoutProfile === 'tabletLandscape') {
+        return { contentFactor: 1.2, footerOffset: 1.9, footerFactor: 0.3 };
+    }
+    if (layoutProfile === 'mobile' || layoutProfile === 'tablet') {
+        return { contentFactor: 1.85, footerOffset: 2.35, footerFactor: 0.35 };
+    }
+    return { contentFactor: 1.05, footerOffset: 1.72, footerFactor: 0.32 };
+};
+
 const NewsComponent = ({newsList}) => {
     const router = useRouter();
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const mediaQuery = window.matchMedia('(max-width: 768px)');
-        const updateViewport = () => setIsMobile(mediaQuery.matches);
-        updateViewport();
-        mediaQuery.addEventListener('change', updateViewport);
-        return () => mediaQuery.removeEventListener('change', updateViewport);
-    }, []);
+    const { layout: layoutProfile } = useViewport();
 
     const handleClickCb = (id) => {
         router.push(`/news/${id}`);
@@ -64,9 +79,7 @@ const NewsComponent = ({newsList}) => {
 
     const heroFactor = 1;
     const contentOffset = 0.78;
-    const layout = isMobile
-        ? { contentFactor: 1.85, footerOffset: 2.35, footerFactor: 0.35 }
-        : { contentFactor: 1.05, footerOffset: 1.72, footerFactor: 0.32 };
+    const layout = getNewsParallaxLayout(layoutProfile);
 
     return (
         <>

@@ -9,8 +9,16 @@ import styled from "styled-components";
 import { media } from "@/utilities/breakpoints";
 
 const StyledDetailSection = styled.div`
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         padding-top: 10%;
+    }
+
+    ${media.compactLandscape} {
+        padding-top: clamp(2.5rem, 10vh, 3.5rem);
+    }
+
+    ${media.tabletLandscape} {
+        padding-top: 6%;
     }
 `;
 
@@ -38,7 +46,7 @@ const imageUrl = newsDetail?.imageInfo.src;
             <ParallaxLayer 
                 offset={0} 
                 factor={1} 
-                speed={1}
+                speed={0}
                 style={{
                     backgroundImage: url(imageUrl, true),
                     backgroundSize: 'cover',
@@ -47,7 +55,7 @@ const imageUrl = newsDetail?.imageInfo.src;
             >
             </ParallaxLayer>
 
-            <ParallaxLayer offset={1} factor={1} speed={1}>
+            <ParallaxLayer offset={1} factor={1} speed={0}>
                 <StyledDetailSection className={styles.section}>
                     <div className={styles.contentContainer}>
                         {newsDetail && 

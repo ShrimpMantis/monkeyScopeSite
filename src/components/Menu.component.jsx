@@ -23,6 +23,11 @@ const StyledNavParent  = styled.div`
     ${media.tablet} {
         min-height: ${props => props.$shouldExpandMenu ? '55vh' : '56px'};
     }
+
+    ${media.compactLandscape} {
+        min-height: ${props => props.$shouldExpandMenu ? 'auto' : '48px'};
+        max-height: ${props => props.$shouldExpandMenu ? 'min(90vh, 100%)' : 'none'};
+    }
 `;
 
 const StyledNavWrapper = styled.div`
@@ -87,11 +92,19 @@ const StyledExpandedMenu = styled.div`
     padding: 2% 4% 4%;
     width: 100%;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         flex-direction: column;
         align-items: stretch;
         gap: 4px;
         padding: 2% 6% 6%;
+    }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 16px;
+        padding: 2% 4% 4%;
     }
 `;
 
@@ -105,10 +118,17 @@ const StyledLongMenuNavButton = styled(StyledNavButton)`
     align-items: center;
     justify-content: center;
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         width: 100%;
         padding: 12px 8px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        width: auto;
+        min-width: min(140px, 28vw);
+        padding: 10px 14px;
+        border-bottom: none;
     }
 
     &:hover{

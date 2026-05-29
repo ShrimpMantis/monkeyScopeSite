@@ -1,12 +1,13 @@
 'use client'
 import ImageContainerStyled from "@/components/styledComponents/ImageContainer.styled";
-import { ParallaxLayer } from "@react-spring/parallax";
+import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { url } from "@/utilities/helper";
 import { useRouter } from "next/navigation";
 import { media } from "@/utilities/breakpoints";
 import { useParallaxPages } from "@/contexts/ParallaxPagesContext";
+import { useViewport } from "@/utilities/viewport";
 import {
     buildProductionLayout,
     contentHeightToFactor,
@@ -30,6 +31,13 @@ const ImageTiles = ({productions, onClickCb}) => {
     });
 };
 
+const StyledHeader = styled.h1`
+    text-align:center;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    padding: 0 4%;
+    color:rgb(250, 245, 245);
+`;
+
 const StyledParentWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -40,10 +48,21 @@ const StyledParentWrapper = styled.div`
     padding: 0 var(--page-gutter);
     box-sizing: border-box;
 
-    ${media.tablet} {
+    ${media.narrowPortrait}, ${media.mobileOnly} {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
         padding: 0 4%;
+    }
+
+    ${media.compactLandscape} {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        padding: 0 var(--page-gutter);
+    }
+
+    ${media.tabletLandscape} {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(10px, 1.5vw, 14px);
     }
 
     ${media.mobile} {
@@ -59,8 +78,12 @@ const StyledImageWrapper = styled.div`
     overflow: hidden;
     cursor: pointer;
 
-    ${media.tablet} {
+    ${media.narrowPortrait}, ${media.mobileOnly} {
         aspect-ratio: 16 / 11;
+    }
+
+    ${media.compactLandscape}, ${media.tabletLandscape} {
+        aspect-ratio: 4 / 3;
     }
 
     ${media.mobile} {
@@ -87,13 +110,28 @@ const StyledSection = styled.div`
         padding: 0 2%;
     }
 
-    ${media.tablet} {
+    ${media.narrowPortrait} {
         padding-top: 8%;
         padding-bottom: clamp(80px, 12vh, 140px);
 
         h2 {
             padding: 0 4%;
         }
+    }
+
+    ${media.compactLandscape} {
+        padding-top: clamp(2.5rem, 8vh, 3.5rem);
+        padding-bottom: clamp(48px, 10vh, 72px);
+
+        h2 {
+            margin-bottom: clamp(12px, 2vh, 20px);
+            padding: 0 2%;
+        }
+    }
+
+    ${media.tabletLandscape} {
+        padding-top: 6%;
+        padding-bottom: clamp(64px, 10vh, 100px);
     }
 
     ${media.mobile} {
@@ -111,7 +149,7 @@ const ProductionComponent = ({productions}) => {
     const router = useRouter();
     const sectionRef = useRef(null);
     const { setPagesOverride, clearPagesOverride } = useParallaxPages();
-    const [viewport, setViewport] = useState('desktop');
+    const { layout: layoutProfile } = useViewport();
     const [layout, setLayout] = useState(() =>
         buildProductionLayout(
             estimateContentFactor(productions?.length ?? 0, 'desktop'),
@@ -120,33 +158,9 @@ const ProductionComponent = ({productions}) => {
     );
 
     useEffect(() => {
-        const mobileQuery = window.matchMedia('(max-width: 480px)');
-        const tabletQuery = window.matchMedia('(max-width: 768px)');
-
-        const updateViewport = () => {
-            if (mobileQuery.matches) {
-                setViewport('mobile');
-            } else if (tabletQuery.matches) {
-                setViewport('tablet');
-            } else {
-                setViewport('desktop');
-            }
-        };
-
-        updateViewport();
-        mobileQuery.addEventListener('change', updateViewport);
-        tabletQuery.addEventListener('change', updateViewport);
-
-        return () => {
-            mobileQuery.removeEventListener('change', updateViewport);
-            tabletQuery.removeEventListener('change', updateViewport);
-        };
-    }, []);
-
-    useEffect(() => {
-        const estimated = estimateContentFactor(productions?.length ?? 0, viewport);
-        setLayout(buildProductionLayout(estimated, viewport));
-    }, [productions?.length, viewport]);
+        const estimated = estimateContentFactor(productions?.length ?? 0, layoutProfile);
+        setLayout(buildProductionLayout(estimated, layoutProfile));
+    }, [productions?.length, layoutProfile]);
 
     useLayoutEffect(() => {
         const sectionEl = sectionRef.current;
@@ -155,9 +169,8 @@ const ProductionComponent = ({productions}) => {
         const measure = () => {
             const vh = window.innerHeight || 1;
             const measuredFactor = contentHeightToFactor(sectionEl.scrollHeight, vh);
-            const estimatedFactor = estimateContentFactor(productions?.length ?? 0, viewport);
-            const contentFactor = Math.max(measuredFactor, estimatedFactor);
-            const nextLayout = buildProductionLayout(contentFactor, viewport);
+            const contentFactor = measuredFactor;
+            const nextLayout = buildProductionLayout(contentFactor, layoutProfile);
 
             setLayout((prev) =>
                 Math.abs(prev.contentFactor - nextLayout.contentFactor) < 0.02 &&
@@ -178,7 +191,7 @@ const ProductionComponent = ({productions}) => {
             resizeObserver.disconnect();
             window.removeEventListener('resize', measure);
         };
-    }, [productions?.length, viewport, setPagesOverride]);
+    }, [productions?.length, layoutProfile, setPagesOverride]);
 
     useEffect(() => () => clearPagesOverride(), [clearPagesOverride]);
 
@@ -186,14 +199,14 @@ const ProductionComponent = ({productions}) => {
         router.push(`/productions/${id}`);
     };
 
-    const heroFactor = 1;
+    const heroFactor = 0.5;
     const { contentOffset, contentFactor, footerOffset, footerFactor, heroBgOffset, backgroundFactor } = layout;
 
     return (
-        <>
+        < >
                 <ParallaxLayer
                     offset={0}
-                    speed={0}
+                    speed={1}
                     factor={heroFactor}
                     style={{
                         backgroundImage: url('/bhagoruwa.png', true),
@@ -202,21 +215,42 @@ const ProductionComponent = ({productions}) => {
                         backgroundRepeat: 'no-repeat',
                     }}>  
                 </ParallaxLayer>
-                <ParallaxLayer
-                    offset={heroBgOffset}
-                    speed={0}
-                    factor={backgroundFactor}
-                    style={{ backgroundColor: '#FAF7EF' }}
-                >  
+
+                <ParallaxLayer offset={0.30} speed={0.8} style={{ opacity: 0.1, pointerEvents: 'none' }} >
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
                 </ParallaxLayer>
 
-                <ParallaxLayer offset={contentOffset + 0.2} speed={-0.3} style={{ pointerEvents: 'none' }}>
+                <ParallaxLayer offset={contentOffset - 0.5} speed={0.3} style={{ opacity: 0.1, pointerEvents: 'none' }}>
                     <img src={url('/monkeyScope.png', false)} style={{ width: '15%', marginLeft: '70%' }} />
                 </ParallaxLayer>
 
+                <ParallaxLayer offset={0.25} speed={1.5} factor={0.1}>
+                    <StyledHeader>Productions</StyledHeader>
+                </ParallaxLayer>
+
+                <ParallaxLayer offset={0.70} speed={0.8} style={{ opacity: 0.1 }} >
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
+                </ParallaxLayer>
+
+                <ParallaxLayer offset={0.75} speed={0.5} style={{ opacity: 0.1 }} >
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '70%' }} />
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '40%' }} />
+                </ParallaxLayer>
+
+                <ParallaxLayer offset={0.99} speed={0.8} style={{ opacity: 0.1}}>
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
+                </ParallaxLayer> 
+                <ParallaxLayer offset={0.99} speed={0.8} style={{ opacity: 0.1}}>
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '20%', marginLeft: '55%' }} />
+                    <img src={url('/monkeyScope.png', false)} style={{ display: 'block', width: '10%', marginLeft: '15%' }} />
+                </ParallaxLayer> 
+
                 <ParallaxLayer
                     offset={contentOffset}
-                    speed={0.15}
+                    speed={2}
                     factor={contentFactor}
                     style={{
                         display: 'flex',
@@ -225,13 +259,12 @@ const ProductionComponent = ({productions}) => {
                     }}
                 >
                     <StyledSection ref={sectionRef}>
-                            <h2>Productions</h2>
-                            <StyledParentWrapper>
-                                <ImageTiles
-                                    productions={productions}
-                                    onClickCb={handleImageTileClick}
-                                />
-                            </StyledParentWrapper>
+                        <StyledParentWrapper>
+                            <ImageTiles
+                                productions={productions}
+                                onClickCb={handleImageTileClick}
+                            />
+                        </StyledParentWrapper>
                     </StyledSection>
                 </ParallaxLayer>
 
