@@ -6,6 +6,7 @@ import { touchTarget, typography } from "@/utilities/accessibility";
 const InformationButtonStyled = styled.span`
     background: ${props => props.$primary ? "#2c6878" : "white"}; 
     color: ${props => props.$primary ? "white" : "#2c6878"};
+    font-family: var(--font-family-mono);
     font-size: ${typography.input};
     margin: 10px;
     border: 2px solid #2c6878;

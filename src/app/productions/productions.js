@@ -152,8 +152,8 @@ const ProductionComponent = ({productions}) => {
     const { layout: layoutProfile } = useViewport();
     const [layout, setLayout] = useState(() =>
         buildProductionLayout(
-            estimateContentFactor(productions?.length ?? 0, 'desktop'),
-            'desktop',
+            estimateContentFactor(productions?.length ?? 0, 'tabletLandscape'),
+            'tabletLandscape',
         ),
     );
 
@@ -274,6 +274,7 @@ const ProductionComponent = ({productions}) => {
                     factor={footerFactor}
                     style={{ backgroundColor: '#FAF7EF' }}
                 />
+                  
         </>
     );
 };

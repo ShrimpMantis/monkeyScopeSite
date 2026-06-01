@@ -6,7 +6,7 @@ import Link from "next/link";
 import { media } from "@/utilities/breakpoints";
 import { touchTarget, typography } from "@/utilities/accessibility";
 
-const StyledNavParent  = styled.div`
+const StyledNavParent  = styled.nav`
     display: flex;
     flex-direction: column;
     overflow:hidden;

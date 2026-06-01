@@ -40,8 +40,8 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
                 {/* 87BCDE */}
                 {/* #FAF7EF, #FAF7EF */}
 
-                <ParallaxLayer offset={1.3} speed={-0.3} style={{ pointerEvents: 'none' }}>
-                <img src={url('/monkeyScope.png', false)} style={{ width: '15%', marginLeft: '70%' }} />
+                <ParallaxLayer offset={1.3} speed={-0.3} style={{ pointerEvents: 'none', opacity: 0.1 }}>
+                    <img src={url('/monkeyScope.png', false)} style={{ width: '15%', marginLeft: '70%' }} />
                 </ParallaxLayer>
 
                 <ParallaxLayer offset={1} speed={0.8} style={{ opacity: 0.1 }}>
@@ -87,7 +87,7 @@ We tell stories. You decide what they mean. We make films. The rest is yours.`}
                         </div>
                     </div>
                 </ParallaxLayer>
-                <ParallaxLayer offset={2} speed={0} factor={0.45}>
+                <ParallaxLayer offset={isNarrow? 2 : 2} speed={isNarrow? 2: 0} factor={0.45}>
                     <div className={styles.section}>
                         <div className={styles.contentContainer}>
                             <GridComponent
@@ -112,8 +112,8 @@ We tell stories. You decide what they mean. We make films. The rest is yours.`}
                     </div>
                 </ParallaxLayer>
                 <ParallaxLayer
-                    offset={4.5}
-                    speed={-0}
+                    offset={isNarrow? 5.9 : 4.5}
+                    speed={isNarrow? 1:0}
                     style={{
                         display: 'flex',
                         alignItems: 'center',

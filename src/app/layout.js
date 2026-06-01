@@ -1,16 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Francois_One, Roboto, Space_Mono } from "next/font/google";
 import "./globals.css";
 import ParentWrapper from "@/components/ParentWrapper";
 import StyledComponentsRegistry from "./registry";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const francoisOne = Francois_One({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-francois-one",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-roboto",
+});
+
+const spaceMono = Space_Mono({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-space-mono",
 });
 
 export const metadata = {
@@ -62,7 +70,9 @@ export default function RootLayout({ children, params, searchParams }) {
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${francoisOne.variable} ${roboto.variable} ${spaceMono.variable}`}
+      >
         <StyledComponentsRegistry>
           
            <ParentWrapper menuItems={menuItems}>

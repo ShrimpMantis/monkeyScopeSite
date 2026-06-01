@@ -2,13 +2,21 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+/** Width at which desktop layout profile and wide CSS tokens apply. */
+export const DESKTOP_MIN_WIDTH = 1440;
+
 /** Shortest viewport edge — stable across orientation changes. */
 export const getDeviceTier = (width, height) => {
   const minSide = Math.min(width, height);
   if (minSide <= 480) return 'mobile';
+  if (width >= DESKTOP_MIN_WIDTH) return 'desktop';
   if (minSide <= 768) return 'tablet';
-  return 'desktop';
+  return 'tablet';
 };
+
+/** True for monitors and large desktops; laptops stay on the tablet profile. */
+export const isWideViewport = (width, height) =>
+  getDeviceTier(width, height) === 'desktop';
 
 /**
  * Layout profile for spacing, grids, and parallax.
@@ -35,11 +43,12 @@ export const getViewportState = () => {
     return {
       width: 1024,
       height: 768,
-      tier: 'desktop',
-      layout: 'desktop',
-      isLandscape: false,
+      tier: 'tablet',
+      layout: 'tabletLandscape',
+      isLandscape: true,
       isCompact: false,
-      isNarrow: false,
+      isNarrow: true,
+      isWide: false,
     };
   }
 
@@ -49,6 +58,7 @@ export const getViewportState = () => {
   const layout = getLayoutProfile(width, height);
   const isLandscape = width > height;
   const isCompact = isCompactLandscape(width, height);
+  const isWide = isWideViewport(width, height);
 
   return {
     width,
@@ -57,7 +67,8 @@ export const getViewportState = () => {
     layout,
     isLandscape,
     isCompact,
-    isNarrow: tier !== 'desktop',
+    isNarrow: !isWide,
+    isWide,
   };
 };
 
