@@ -9,14 +9,12 @@ import styles from '@/utilities/page.module.css';
 import { useRouter } from 'next/navigation';
 import styled from 'styled-components';
 import ContactUsComponent from '@/components/Contactus.component';
-import { media, breakpoints } from '@/utilities/breakpoints';
-import { useViewport } from '@/utilities/viewport';
+import { media } from '@/utilities/breakpoints';
+import { isWideViewport, useViewport } from '@/utilities/viewport';
 import { InformationButton } from '@/components/styledComponents/InformationButton.styled';
 
-const laptopMinWidth = parseInt(breakpoints.laptop, 10);
-
-const getHomeParallaxLayout = (width) => {
-  if (width >= laptopMinWidth) {
+const getHomeParallaxLayout = (width, height) => {
+  if (isWideViewport(width, height)) {
     return { footerFactor: 0.32 };
   }
   return { footerFactor: 0.7 };
@@ -112,8 +110,8 @@ const ContactSection = styled.div`
 
 const Home = ({mediaItems, productions}) => {
   const router = useRouter();
-  const { width } = useViewport();
-  const layout = getHomeParallaxLayout(width);
+  const { width, height } = useViewport();
+  const layout = getHomeParallaxLayout(width, height);
 
   const productionsFactor = 1;
   const newsOffset = 3;
@@ -326,10 +324,10 @@ award-winning narratives from the heart of the Northeast to the global stage.`}
         </ParallaxLayer>
 
         <ParallaxLayer
-          offset={footerOffset}
+          offset={footerOffset+0.05}
           speed={0}
           factor={layout.footerFactor}
-          style={{ backgroundColor: 'transparent' }}
+          style={{ backgroundColor: 'transparent', backgroundImage: url('/monkeyScopePoster.png', true), backgroundSize: 'cover', backgroundPosition: 'center', objectFit: 'cover' ,height:'100vh'}}
         />
         
       </>

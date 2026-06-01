@@ -32,7 +32,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-family-body);
   font-size: var(--font-size-body);
   line-height: var(--line-height-body);
   -webkit-font-smoothing: antialiased;
@@ -76,7 +76,6 @@ a {
   text-decoration: none;
 }
 
-button,
 input,
 textarea,
 select {
@@ -84,6 +83,22 @@ select {
   line-height: inherit;
   border: none;
   background: none;
+}
+
+button {
+  line-height: inherit;
+  border: none;
+  background: none;
+}
+
+button,
+[type="button"],
+[type="submit"],
+[type="reset"],
+nav,
+nav a {
+  font-family: var(--font-family-mono);
+  font-size: inherit;
 }
 
 button,
@@ -96,9 +111,20 @@ button,
 }
 
 p {
+  font-family: var(--font-family-body);
   line-height: var(--line-height-body);
   margin-block-end: var(--paragraph-spacing);
   max-width: var(--prose-max-width);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 400;
 }
 
 p:last-child {
@@ -107,14 +133,12 @@ p:last-child {
 
 h1 {
   font-size: var(--font-size-h1);
-  font-weight: 300;
   line-height: var(--line-height-heading);
 }
 
 h2 {
   padding-block: var(--space-xs);
   font-size: var(--font-size-h2);
-  font-weight: 300;
   line-height: var(--line-height-heading);
   text-underline-offset: clamp(4px, 0.6vw, 10px);
   text-decoration-thickness: 2px;

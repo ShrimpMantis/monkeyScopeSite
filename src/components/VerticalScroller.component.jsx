@@ -7,7 +7,8 @@ import { media } from "@/utilities/breakpoints";
 import styles from "@/utilities/page.module.css";
 
 const StyledTextStickyContainer = styled(TextContainer)`
- width: 30%;
+ width: 28%;
+ min-width: 160px;
  flex-shrink: 0;
  z-index: 2;
  pointer-events: auto;
@@ -15,21 +16,20 @@ const StyledTextStickyContainer = styled(TextContainer)`
     text-decoration-line: none;
  }
 
- ${media.narrowPortrait} {
+ ${media.narrowPortrait}, ${media.portraitBelowDesktop} {
     display: none;
  }
 
- ${media.compactLandscape}, ${media.tabletLandscape} {
-    display: block;
-    width: 28%;
-    min-width: 160px;
+ ${media.wideUp} {
+    width: 30%;
+    min-width: 0;
  }
 `;
 
 const MobileTitleHeader = styled.div`
   display: none;
 
-  ${media.narrowPortrait} {
+  ${media.narrowPortrait}, ${media.portraitBelowDesktop} {
     display: block;
     width: 100%;
     padding: 0 4% 20px;
@@ -40,52 +40,46 @@ const MobileTitleHeader = styled.div`
       text-decoration-line: none;
     }
   }
-
-  ${media.compactLandscape}, ${media.tabletLandscape} {
-    display: none;
-  }
 `;
 
 const StyledMediaContainer = styled(ImageTextContainer)`
-  width: 61%;
+  width: 68%;
+  margin-left: auto;
   flex-shrink: 0;
+  max-width: none;
 
-  ${media.narrowPortrait} {
+  ${media.narrowPortrait}, ${media.portraitBelowDesktop} {
     width: 100%;
     max-width: 100%;
-    margin-left: 0;
     margin-left: auto;
   }
 
-  ${media.compactLandscape}, ${media.tabletLandscape} {
-    width: 68%;
-    margin-left: auto;
-    max-width: none;
+  ${media.wideUp} {
+    width: 61%;
+    margin-left: 0;
   }
 `;
 
 const StyledScrollerWrapper = styled.div`
-  ${media.narrowPortrait} {
+  min-height: auto;
+  display: block;
+
+  ${media.narrowPortrait}, ${media.portraitBelowDesktop} {
     min-height: 70vh;
     display: flex;
     flex-direction: column;
-  }
-
-  ${media.compactLandscape}, ${media.tabletLandscape} {
-    min-height: auto;
-    display: block;
   }
 `;
 
 const StyledParallaxContent = styled.div`
     width: 100%;
-    padding: 10% 10% 10% 2%;
+    padding: 4% 5%;
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
-    height: 900px;
+    height: min(90vh, 560px);
 
-    ${media.narrowPortrait} {
+    ${media.narrowPortrait}, ${media.portraitBelowDesktop} {
         padding: 4% 5%;
         justify-content: stretch;
         height: min(85vh, 640px);
@@ -97,9 +91,9 @@ const StyledParallaxContent = styled.div`
         justify-content: flex-end;
     }
 
-    ${media.tabletLandscape} {
-        padding: 4% 5%;
-        height: min(90vh, 560px);
+    ${media.wideUp} {
+        padding: 10% 10% 10% 2%;
+        height: 900px;
         justify-content: flex-end;
     }
 `;

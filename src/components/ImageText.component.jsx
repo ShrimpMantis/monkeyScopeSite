@@ -30,7 +30,7 @@ const ImageTextContainerStyled = styled(ImageTextContainer)`
     }
 
     img {
-        max-height: 420px;
+        max-height: min(42vh, 240px);
         object-fit: cover;
     }
 
@@ -56,9 +56,9 @@ const ImageTextContainerStyled = styled(ImageTextContainer)`
         }
     }
 
-    ${media.tabletLandscape} {
+    ${media.wideUp} {
         img {
-            max-height: min(42vh, 240px);
+            max-height: 420px;
         }
     }
 `;

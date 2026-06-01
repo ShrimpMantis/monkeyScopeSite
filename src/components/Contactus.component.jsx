@@ -72,10 +72,6 @@ const StyledDivContainer = styled.div`
         gap: var(--space-xl);
     }
 
-    ${media.laptop} {
-        padding: var(--space-lg) var(--page-gutter);
-    }
-
     ${media.desktopScreen} {
         max-width: ${layout.gridMaxWidth};
         gap: var(--space-xl);

@@ -20,6 +20,15 @@
   --space-xl: clamp(1.75rem, 3.5vw, 3rem);
   --space-2xl: clamp(2.25rem, 5vw, 4rem);
 
+  /* Font families (next/font variables set on body in layout.js) */
+  --font-family-heading: var(--font-francois-one), sans-serif;
+  --font-family-body: var(--font-roboto), Helvetica, Arial, sans-serif;
+  --font-family-mono: var(--font-space-mono), Monaco, Consolas, monospace;
+
+  --font-roboto: 'Roboto', sans-serif;
+  --font-francois-one: 'Francois One', sans-serif;
+  --font-space-mono: 'Space Mono', monospace;
+
   /* Typography scale */
   --font-size-body: clamp(1rem, 0.35vw + 0.92rem, 1.125rem);
   --font-size-body-min: 16px;
@@ -67,8 +76,16 @@
   }
 }
 
-/* Tablet landscape */
-@media (min-width: 481px) and (max-width: 1024px) and (orientation: landscape) {
+/* Portrait laptop — same tokens as tablet */
+@media (min-width: 769px) and (max-width: 1439px) and (orientation: portrait) {
+  :root {
+    --page-gutter: clamp(1.25rem, 4vw, 2rem);
+    --content-max-width: min(42rem, 100% - (var(--page-gutter) * 2));
+  }
+}
+
+/* Tablet landscape and laptop — shared compact layout tokens */
+@media (min-width: 481px) and (max-width: 1439px) and (orientation: landscape) {
   :root {
     --page-gutter: clamp(1.25rem, 2.5vw, 2rem);
     --content-max-width: min(56rem, 100% - (var(--page-gutter) * 2));
@@ -77,16 +94,8 @@
   }
 }
 
-/* Laptop */
-@media (min-width: 1025px) and (max-width: 1280px) {
-  :root {
-    --content-max-width: min(64rem, 100% - (var(--page-gutter) * 2));
-    --grid-max-width: min(72rem, 100% - (var(--page-gutter) * 2));
-  }
-}
-
 /* Desktop */
-@media (min-width: 1281px) and (max-width: 1920px) {
+@media (min-width: 1440px) and (max-width: 1920px) {
   :root {
     --content-max-width: min(72rem, 100% - (var(--page-gutter) * 2));
     --grid-max-width: min(80rem, 100% - (var(--page-gutter) * 2));
