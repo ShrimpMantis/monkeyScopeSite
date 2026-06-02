@@ -43,21 +43,22 @@ const StyledParentWrapper = styled.div`
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(10px, 2vw, 16px);
     width: 100%;
-    max-width: var(--grid-max-width);
+    --productions-gutter: clamp(0.75rem, 3vw, 3cm);
+    max-width: calc(100% - (var(--productions-gutter) * 2));
     margin: 0 auto;
-    padding: 0 var(--page-gutter);
+    padding: 0 var(--productions-gutter);
     box-sizing: border-box;
 
     ${media.narrowPortrait}, ${media.mobileOnly} {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 14px;
+        max-width: 100%;
         padding: 0 4%;
     }
 
     ${media.compactLandscape} {
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
-        padding: 0 var(--page-gutter);
     }
 
     ${media.tabletLandscape} {
@@ -67,6 +68,7 @@ const StyledParentWrapper = styled.div`
 
     ${media.mobile} {
         gap: 10px;
+        max-width: 100%;
         padding: 0 4%;
     }
 `;
@@ -199,7 +201,7 @@ const ProductionComponent = ({productions}) => {
         router.push(`/productions/${id}`);
     };
 
-    const heroFactor = 0.5;
+    const heroFactor = 0.8;
     const { contentOffset, contentFactor, footerOffset, footerFactor, heroBgOffset, backgroundFactor } = layout;
 
     return (
@@ -249,8 +251,8 @@ const ProductionComponent = ({productions}) => {
                 </ParallaxLayer> 
 
                 <ParallaxLayer
-                    offset={contentOffset}
-                    speed={2}
+                    offset={contentOffset+0.1}
+                    speed={1.8}
                     factor={contentFactor}
                     style={{
                         display: 'flex',

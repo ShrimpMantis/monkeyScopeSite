@@ -250,21 +250,29 @@ const Home = ({mediaItems, productions}) => {
                  <TextContainer 
                     title={'About'}
                     content={`Monkey Scope is a premier, forward-thinking production house born from the vibrant cultural landscape of Assam, 
-                      Northeast India, built with a sharp, uncompromising global vision. 
-                      We don’t just create visuals; we capture the rhythm of a region that pulses with untapped stories, 
-                      cinematic landscapes, and raw artistic talent.
-                      Our portfolio spans the entire spectrum of modern visual storytelling. 
-                      We cross genres, push aesthetic boundaries, and fluidly transition between intimate independent art and massive commercial scale. 
-                      Monkey Scope has become a trusted name for:
-Mainstream Commercials & Cinema: Designing and producing high-production-value music videos for major Bollywood artists and theatrical motion pictures.
-Independent & Corporate Labels: Collaborating with leading independent music labels to shape the visual identity of breakout artists.
-Cultural Preservation & Innovation: Partnering with iconic folk-rock bands to translate regional musical heritage into cutting-edge, contemporary visual narratives.`}
+                      Northeast India, built with a sharp, uncompromising global vision. We make films, music videos and commercials.
+                    `
+                    }
+                    isPrimary={true}
+                    showButton={false}
+                 >
+                  <h2>{"About"}</h2>
+                  </TextContainer>
+
+                  <TextContainer 
+                    title={''}
+                    content={
+                      `
+                      Our portfolio spans these genres:
+                      Mainstream Commercials & Cinema: Designing and producing high-production-value music videos for major Bollywood artists and theatrical motion pictures.
+                      Independent & Corporate Labels: Collaborating with leading independent music labels to shape the visual identity of breakout artists.
+                      Cultural Preservation & Innovation: Partnering with iconic folk-rock bands to translate regional musical heritage into cutting-edge, contemporary visual narratives.` 
+                    }
                     isPrimary={true}
                     showButton={true}
                     btnText={'More'}
                     hrefParamValue={'/about'}
                  >
-                  <h2>{"About"}</h2>
                   </TextContainer>
                 </HomeSection>
              </div>

@@ -77,7 +77,7 @@ const NewsComponent = ({newsList}) => {
         router.push(`/news/${id}`);
     };
 
-    const heroFactor = 1;
+    const heroFactor = 1.01;
     const contentOffset = 0.78;
     const layout = getNewsParallaxLayout(layoutProfile);
 
@@ -88,29 +88,29 @@ const NewsComponent = ({newsList}) => {
             speed={0}
             factor={heroFactor}
             style={{
-                backgroundImage: url('/bhagoruwa.png', true),
+                backgroundImage: url('/monkeyHillsHero.png', true),
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
             }}
         />
 
-        <ParallaxLayer
+       {/*  <ParallaxLayer
             offset={heroFactor * 0.85}
             speed={0}
-            factor={1.2}
+            factor={1}
             style={{ backgroundColor: '#FAF7EF' }}
-        />
+        /> */}
 
         <ParallaxLayer
-            offset={contentOffset}
-            speed={1}
+            offset={contentOffset + 0.1}
+            speed={0.6}
             factor={layout.contentFactor}
             style={{
                 display: 'flex',
                 alignItems: 'flex-start',
                 justifyContent: 'center',
-                backgroundColor: '#FAF7EF',
+               /* backgroundColor: '#FAF7EF', */ 
             }}
         >
             <StyledNewsSection>
@@ -126,7 +126,6 @@ const NewsComponent = ({newsList}) => {
             offset={layout.footerOffset}
             speed={0}
             factor={layout.footerFactor}
-            style={{ backgroundColor: '#FAF7EF' }}
         />
     </>
     );
