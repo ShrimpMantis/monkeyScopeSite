@@ -14,7 +14,7 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
     const { isNarrow, isCompact } = useViewport();
     const useCompactHero = isNarrow || isCompact;
 
-    const heroFactor = useCompactHero ? 1 : 3;
+    const heroFactor = useCompactHero ? 1 : 1.999;
     const teamTileGap = isCompact ? '20px' : isNarrow ? '100px' : undefined;
 
     const handleClickCb = () => {
@@ -27,10 +27,11 @@ const About = ({teamInfo, mission, vision, history, specializations}) => {
         <>
                 <ParallaxLayer offset={0} speed={0} factor={heroFactor}
                     style={{
-                    backgroundImage: url('/bhagoruwa.png', true),
-                    backgroundSize: useCompactHero ? 'cover' : 'contain',
+                  /*   backgroundImage: url('/bhagoruwa.png', true),
+                    backgroundSize: useCompactHero ? 'cover' : 'contain', */
                     ...(useCompactHero ? { backgroundPosition: 'center' } : {}),
                 }}>
+                    <video src={url('/riverLoopVide.mp4', false)} autoPlay loop muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 
                 </ParallaxLayer>
 
